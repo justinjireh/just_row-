@@ -1,0 +1,9 @@
+<resources>
+    <color name="rowplus_background">#0D1B1E</color>
+    <color name="rowplus_surface">#17353C</color>
+    <color name="rowplus_action">#D97E1A</color>
+    <color name="rowplus_action_text">#101214</color>
+    <color name="rowplus_on_background">#F2F4F2</color>
+    <color name="rowplus_muted">#A7BBB7</color>
+</resources>
+

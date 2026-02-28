@@ -1,0 +1,38 @@
+<resources>
+    <string name="app_name">RowPlus</string>
+    <string name="subtitle">Custom launcher and local-first row shell for Hydrow.</string>
+    <string name="active_profile_label">ACTIVE PROFILE</string>
+    <string name="profile_hint">New rows and history save under %1$s.</string>
+    <string name="profile_primary">You</string>
+    <string name="profile_spouse">Wife</string>
+    <string name="start_row_plus">Start Row+</string>
+    <string name="view_history">History</string>
+    <string name="open_browser">Browser</string>
+    <string name="open_spotify">Spotify</string>
+    <string name="no_history">No saved rows yet.</string>
+    <string name="history_summary">%1$d saved rows. Latest: %2$s in %3$s.</string>
+    <string name="history_title">%1$s history</string>
+    <string name="spotify_missing">Spotify is not installed yet.</string>
+    <string name="browser_missing">No browser app is available.</string>
+    <string name="hydrow_missing">Hydrow app is not available.</string>
+    <string name="admin_title">Admin actions</string>
+    <string name="admin_open_hydrow">Open Hydrow</string>
+    <string name="admin_open_settings">Open Android settings</string>
+    <string name="admin_open_launcher_chooser">Open home app settings</string>
+    <string name="session_title">Row+</string>
+    <string name="session_profile_label">PROFILE</string>
+    <string name="metrics_stub">Live hardware metrics are not connected yet. This screen currently records a local mock session so launcher, profile, and history flows can be tested safely.</string>
+    <string name="metric_duration_label">DURATION</string>
+    <string name="metric_duration_default">0:00</string>
+    <string name="metric_distance_label">DISTANCE</string>
+    <string name="metric_distance_default">0.00 km</string>
+    <string name="metric_split_label">AVG SPLIT</string>
+    <string name="metric_split_default">0:00 /500m</string>
+    <string name="metric_spm_label">AVG SPM</string>
+    <string name="metric_spm_default">0</string>
+    <string name="start_mock_session">Start mock session</string>
+    <string name="stop_and_save">Stop and save</string>
+    <string name="session_saved">Saved a local row for %1$s.</string>
+    <string name="cancel">Cancel</string>
+</resources>
+

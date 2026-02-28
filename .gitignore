@@ -1,0 +1,28 @@
+# Local tooling and downloads
+.claude/
+toolchain/
+platform-tools/
+mtkclient/
+device_apks/
+
+# Third-party binaries / one-off utilities
+*.zip
+*.jar
+*.exe
+nul
+
+# Device/driver artifacts
+hydrow_driver/
+update_zip/
+
+# Android project local state
+**/.gradle/
+**/build/
+**/local.properties
+
+# Keep the Gradle wrapper binary in source control
+!hydrow-rowplus-launcher/gradle/wrapper/gradle-wrapper.jar
+
+# IDE noise
+.idea/
+*.iml
