@@ -1,0 +1,42 @@
+<resources>
+    <!-- Dashboard grid padding -->
+    <dimen name="dash_pad">28dp</dimen>
+    <dimen name="dash_gap">20dp</dimen>
+
+    <!-- Card radii -->
+    <dimen name="card_radius_lg">20dp</dimen>
+    <dimen name="card_radius_md">14dp</dimen>
+    <dimen name="card_radius_sm">12dp</dimen>
+    <dimen name="pill_radius">100dp</dimen>
+
+    <!-- Card padding -->
+    <dimen name="card_pad">20dp</dimen>
+    <dimen name="card_pad_lg">28dp</dimen>
+
+    <!-- Typography sizes -->
+    <dimen name="text_hero">34sp</dimen>
+    <dimen name="text_stat_value">26sp</dimen>
+    <dimen name="text_metric_value">20sp</dimen>
+    <dimen name="text_body">14sp</dimen>
+    <dimen name="text_label">11sp</dimen>
+    <dimen name="text_overline">10sp</dimen>
+
+    <!-- Start button -->
+    <dimen name="start_btn_text">30sp</dimen>
+    <dimen name="start_btn_pad_v">44dp</dimen>
+    <dimen name="start_btn_pad_h">36dp</dimen>
+    <dimen name="start_btn_radius">22dp</dimen>
+
+    <!-- Dock -->
+    <dimen name="dock_icon">20dp</dimen>
+    <dimen name="dock_pad_h">20dp</dimen>
+    <dimen name="dock_pad_v">12dp</dimen>
+
+    <!-- Week chart bar -->
+    <dimen name="bar_width">0dp</dimen>
+    <dimen name="bar_min_height">3dp</dimen>
+    <dimen name="bar_radius">3dp</dimen>
+
+    <!-- Left panel width weight ratio handled in layout -->
+    <dimen name="left_panel_min_width">320dp</dimen>
+</resources>

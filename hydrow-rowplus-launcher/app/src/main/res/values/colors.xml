@@ -1,9 +1,53 @@
 <resources>
-    <color name="rowplus_background">#0D1B1E</color>
-    <color name="rowplus_surface">#17353C</color>
-    <color name="rowplus_action">#D97E1A</color>
-    <color name="rowplus_action_text">#101214</color>
-    <color name="rowplus_on_background">#F2F4F2</color>
-    <color name="rowplus_muted">#A7BBB7</color>
-</resources>
+    <!-- Core background -->
+    <color name="rowplus_bg_deep">#FF060D10</color>
+    <color name="rowplus_bg_dark">#FF0A1418</color>
 
+    <!-- Glass surfaces -->
+    <color name="rowplus_surface">#99122830</color>
+    <color name="rowplus_surface_solid">#FF142A30</color>
+    <color name="rowplus_surface_hover">#B3183C3E</color>
+
+    <!-- Accent: amber -->
+    <color name="rowplus_amber">#FFE08A1E</color>
+    <color name="rowplus_amber_dark">#FFC67015</color>
+    <color name="rowplus_amber_soft">#FFF4A83D</color>
+    <color name="rowplus_amber_12">#1FE08A1E</color>
+    <color name="rowplus_amber_30">#4DE08A1E</color>
+
+    <!-- Accent: teal -->
+    <color name="rowplus_teal">#FF4ECDC4</color>
+    <color name="rowplus_teal_20">#334ECDC4</color>
+    <color name="rowplus_teal_40">#664ECDC4</color>
+    <color name="rowplus_teal_dim">#264ECDC4</color>
+
+    <!-- Text hierarchy -->
+    <color name="rowplus_text_primary">#F2FFFFFF</color>
+    <color name="rowplus_text_secondary">#99FFFFFF</color>
+    <color name="rowplus_text_muted">#59FFFFFF</color>
+    <color name="rowplus_text_faint">#33FFFFFF</color>
+
+    <!-- Dividers / borders -->
+    <color name="rowplus_divider">#14FFFFFF</color>
+    <color name="rowplus_border">#14FFFFFF</color>
+    <color name="rowplus_border_hover">#24FFFFFF</color>
+
+    <!-- Button on-amber -->
+    <color name="rowplus_on_amber">#FF0A0A0A</color>
+
+    <!-- Week chart bars -->
+    <color name="rowplus_bar_inactive">#0AFFFFFF</color>
+    <color name="rowplus_bar_active">#334ECDC4</color>
+    <color name="rowplus_bar_today">#B34ECDC4</color>
+
+    <!-- PR badge -->
+    <color name="rowplus_pr_bg">#1A4ECDC4</color>
+    <color name="rowplus_pr_border">#334ECDC4</color>
+
+    <!-- Legacy compat aliases -->
+    <color name="rowplus_background">#FF060D10</color>
+    <color name="rowplus_action">#FFE08A1E</color>
+    <color name="rowplus_action_text">#FF0A0A0A</color>
+    <color name="rowplus_on_background">#F2FFFFFF</color>
+    <color name="rowplus_muted">#99FFFFFF</color>
+</resources>

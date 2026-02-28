@@ -1,128 +1,738 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/rowplus_background">
+    android:background="@color/rowplus_bg_deep"
+    android:fitsSystemWindows="true">
 
+    <!-- ===== TOP-RIGHT LOGO (admin long-press target) ===== -->
+    <TextView
+        android:id="@+id/logoText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|end"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="28dp"
+        android:text="@string/logo_text"
+        android:textColor="@color/rowplus_text_muted"
+        android:textSize="14sp"
+        android:fontFamily="sans-serif-medium"
+        android:letterSpacing="0.2" />
+
+    <!-- ===== MAIN HORIZONTAL LAYOUT ===== -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="24dp">
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:paddingStart="28dp"
+        android:paddingEnd="28dp"
+        android:paddingTop="24dp"
+        android:paddingBottom="16dp">
 
-        <TextView
-            android:id="@+id/appTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/app_name"
-            android:textColor="@color/rowplus_on_background"
-            android:textSize="34sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/subtitle"
-            android:textColor="@color/rowplus_muted"
-            android:textSize="16sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="@string/active_profile_label"
-            android:textColor="@color/rowplus_muted"
-            android:textSize="12sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/activeProfileValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:textColor="@color/rowplus_on_background"
-            android:textSize="22sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/profileHint"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:textColor="@color/rowplus_muted"
-            android:textSize="14sp" />
-
+        <!-- ===== LEFT PANEL: Profile + Stats ===== -->
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:orientation="horizontal">
+            android:id="@+id/leftPanel"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="38"
+            android:layout_marginEnd="20dp"
+            android:orientation="vertical">
 
-            <Button
-                android:id="@+id/primaryProfileButton"
-                android:layout_width="0dp"
+            <!-- Profile Card -->
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/profile_primary" />
+                android:orientation="vertical"
+                android:background="@drawable/bg_glass_card"
+                android:padding="28dp">
 
-            <Space
-                android:layout_width="12dp"
-                android:layout_height="1dp" />
+                <!-- Top highlight -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="-28dp"
+                    android:layout_marginStart="-28dp"
+                    android:layout_marginEnd="-28dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/highlight_line_top" />
 
-            <Button
-                android:id="@+id/spouseProfileButton"
-                android:layout_width="0dp"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/greeting_welcome"
+                    android:textColor="@color/rowplus_text_muted"
+                    android:textSize="@dimen/text_overline"
+                    android:fontFamily="sans-serif-medium"
+                    android:letterSpacing="0.2"
+                    android:textAllCaps="true" />
+
+                <TextView
+                    android:id="@+id/profileName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:textColor="@color/rowplus_text_primary"
+                    android:textSize="@dimen/text_hero"
+                    android:fontFamily="sans-serif"
+                    android:textStyle="bold"
+                    android:letterSpacing="-0.02"
+                    tools:text="Justin" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="@string/profile_ready"
+                    android:textColor="@color/rowplus_text_secondary"
+                    android:textSize="@dimen/text_body" />
+
+                <!-- Profile Switcher Buttons -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/profileBtnPrimary"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="6dp"
+                        android:background="@drawable/bg_profile_btn"
+                        android:gravity="center"
+                        android:paddingTop="12dp"
+                        android:paddingBottom="12dp"
+                        android:textColor="@color/rowplus_text_secondary"
+                        android:textSize="@dimen/text_body"
+                        android:fontFamily="sans-serif-medium"
+                        tools:text="Justin" />
+
+                    <TextView
+                        android:id="@+id/profileBtnSpouse"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="6dp"
+                        android:background="@drawable/bg_profile_btn"
+                        android:gravity="center"
+                        android:paddingTop="12dp"
+                        android:paddingBottom="12dp"
+                        android:textColor="@color/rowplus_text_secondary"
+                        android:textSize="@dimen/text_body"
+                        android:fontFamily="sans-serif-medium"
+                        tools:text="Sarah" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- THIS WEEK section label -->
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/profile_spouse" />
+                android:layout_marginTop="18dp"
+                android:layout_marginBottom="10dp"
+                android:text="@string/section_this_week"
+                android:textColor="@color/rowplus_text_muted"
+                android:textSize="@dimen/text_overline"
+                android:fontFamily="sans-serif-medium"
+                android:letterSpacing="0.15" />
+
+            <!-- Stat tiles row -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <!-- Rows -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="6dp"
+                    android:orientation="vertical"
+                    android:background="@drawable/bg_stat_tile"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:id="@+id/statRowsValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/rowplus_text_primary"
+                        android:textSize="@dimen/text_stat_value"
+                        android:fontFamily="sans-serif"
+                        android:textStyle="bold"
+                        tools:text="4" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="@string/stat_rows_label"
+                        android:textColor="@color/rowplus_text_secondary"
+                        android:textSize="@dimen/text_label"
+                        android:fontFamily="sans-serif-medium" />
+                </LinearLayout>
+
+                <!-- Distance -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:orientation="vertical"
+                    android:background="@drawable/bg_stat_tile"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:id="@+id/statDistanceValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/rowplus_text_primary"
+                        android:textSize="@dimen/text_stat_value"
+                        android:fontFamily="sans-serif"
+                        android:textStyle="bold"
+                        tools:text="18.4 km" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="@string/stat_distance_label"
+                        android:textColor="@color/rowplus_text_secondary"
+                        android:textSize="@dimen/text_label"
+                        android:fontFamily="sans-serif-medium" />
+                </LinearLayout>
+
+                <!-- Streak -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="6dp"
+                    android:orientation="vertical"
+                    android:background="@drawable/bg_stat_tile"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:id="@+id/statStreakValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/rowplus_teal"
+                        android:textSize="@dimen/text_stat_value"
+                        android:fontFamily="sans-serif"
+                        android:textStyle="bold"
+                        tools:text="12" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="@string/stat_streak_label"
+                        android:textColor="@color/rowplus_text_secondary"
+                        android:textSize="@dimen/text_label"
+                        android:fontFamily="sans-serif-medium" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Week bar chart -->
+            <LinearLayout
+                android:id="@+id/weekChart"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:layout_marginTop="14dp"
+                android:orientation="horizontal"
+                android:gravity="bottom"
+                android:paddingTop="4dp"
+                android:baselineAligned="false">
+                <!-- 7 bars populated programmatically -->
+            </LinearLayout>
+
+            <!-- Week day labels -->
+            <LinearLayout
+                android:id="@+id/weekLabels"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:orientation="horizontal">
+                <!-- 7 labels populated programmatically -->
+            </LinearLayout>
+
+            <!-- Divider -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/divider_h" />
+
+            <!-- Last Row Card -->
+            <LinearLayout
+                android:id="@+id/lastRowCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/bg_stat_tile"
+                android:padding="18dp"
+                android:visibility="visible">
+
+                <!-- Header row -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/last_row_title"
+                        android:textColor="@color/rowplus_text_secondary"
+                        android:textSize="@dimen/text_label"
+                        android:fontFamily="sans-serif-medium"
+                        android:letterSpacing="0.1" />
+
+                    <TextView
+                        android:id="@+id/lastRowDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/rowplus_text_muted"
+                        android:textSize="@dimen/text_label"
+                        tools:text="Today, 7:14 AM" />
+                </LinearLayout>
+
+                <!-- Metrics row -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:orientation="horizontal">
+
+                    <!-- Distance -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/lastRowDistance"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/rowplus_text_primary"
+                            android:textSize="@dimen/text_metric_value"
+                            android:fontFamily="sans-serif"
+                            android:textStyle="bold"
+                            tools:text="5.02 km" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="@string/label_distance"
+                            android:textColor="@color/rowplus_text_muted"
+                            android:textSize="@dimen/text_overline"
+                            android:letterSpacing="0.05" />
+                    </LinearLayout>
+
+                    <!-- Duration -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/lastRowDuration"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/rowplus_text_primary"
+                            android:textSize="@dimen/text_metric_value"
+                            android:fontFamily="sans-serif"
+                            android:textStyle="bold"
+                            tools:text="24:38" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="@string/label_duration"
+                            android:textColor="@color/rowplus_text_muted"
+                            android:textSize="@dimen/text_overline"
+                            android:letterSpacing="0.05" />
+                    </LinearLayout>
+
+                    <!-- Split -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/lastRowSplit"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/rowplus_text_primary"
+                            android:textSize="@dimen/text_metric_value"
+                            android:fontFamily="sans-serif"
+                            android:textStyle="bold"
+                            tools:text="2:27" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="@string/label_split"
+                            android:textColor="@color/rowplus_text_muted"
+                            android:textSize="@dimen/text_overline"
+                            android:letterSpacing="0.05" />
+                    </LinearLayout>
+
+                    <!-- SPM -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical">
+
+                            <TextView
+                                android:id="@+id/lastRowSpm"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/rowplus_text_primary"
+                                android:textSize="@dimen/text_metric_value"
+                                android:fontFamily="sans-serif"
+                                android:textStyle="bold"
+                                tools:text="26" />
+
+                            <TextView
+                                android:id="@+id/prBadge"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="6dp"
+                                android:background="@drawable/bg_pr_badge"
+                                android:paddingStart="6dp"
+                                android:paddingEnd="6dp"
+                                android:paddingTop="1dp"
+                                android:paddingBottom="1dp"
+                                android:text="@string/badge_pr"
+                                android:textColor="@color/rowplus_teal"
+                                android:textSize="9sp"
+                                android:fontFamily="sans-serif-medium"
+                                android:letterSpacing="0.08"
+                                android:visibility="gone"
+                                tools:visibility="visible" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="@string/label_avg_spm"
+                            android:textColor="@color/rowplus_text_muted"
+                            android:textSize="@dimen/text_overline"
+                            android:letterSpacing="0.05" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- No history placeholder -->
+            <TextView
+                android:id="@+id/noHistoryText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="18dp"
+                android:background="@drawable/bg_stat_tile"
+                android:text="@string/no_history"
+                android:textColor="@color/rowplus_text_muted"
+                android:textSize="@dimen/text_body"
+                android:gravity="center"
+                android:visibility="gone"
+                tools:visibility="gone" />
         </LinearLayout>
 
-        <Button
-            android:id="@+id/startRowButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
-            android:backgroundTint="@color/rowplus_action"
-            android:text="@string/start_row_plus"
-            android:textAllCaps="false"
-            android:textColor="@color/rowplus_action_text"
-            android:textSize="24sp" />
+        <!-- ===== RIGHT PANEL: Start Row + Quick Options + Dock ===== -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="62"
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
 
-        <TextView
-            android:id="@+id/historySummary"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:background="@color/rowplus_surface"
-            android:padding="16dp"
-            android:textColor="@color/rowplus_on_background"
-            android:textSize="16sp" />
+            <!-- Spacer to vertically center the start button area -->
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
 
-        <Button
-            android:id="@+id/historyButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/view_history"
-            android:textAllCaps="false" />
+            <!-- START ROW+ BUTTON -->
+            <LinearLayout
+                android:id="@+id/startRowButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:background="@drawable/bg_start_row"
+                android:paddingTop="@dimen/start_btn_pad_v"
+                android:paddingBottom="@dimen/start_btn_pad_v"
+                android:paddingStart="@dimen/start_btn_pad_h"
+                android:paddingEnd="@dimen/start_btn_pad_h"
+                android:elevation="12dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:maxWidth="620dp">
 
-        <Button
-            android:id="@+id/browserButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/open_browser"
-            android:textAllCaps="false" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/start_row_plus"
+                    android:textColor="@color/rowplus_on_amber"
+                    android:textSize="@dimen/start_btn_text"
+                    android:fontFamily="sans-serif"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.02" />
 
-        <Button
-            android:id="@+id/spotifyButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="@string/open_spotify"
-            android:textAllCaps="false" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="@string/start_subtitle"
+                    android:textColor="#990A0A0A"
+                    android:textSize="13sp"
+                    android:fontFamily="sans-serif-medium"
+                    android:letterSpacing="0.15"
+                    android:textAllCaps="true" />
+            </LinearLayout>
 
+            <!-- Quick presets row -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/quick20min"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_quick_pill"
+                    android:paddingStart="18dp"
+                    android:paddingEnd="18dp"
+                    android:paddingTop="9dp"
+                    android:paddingBottom="9dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="@string/quick_20min"
+                    android:textColor="@color/rowplus_text_secondary"
+                    android:textSize="12sp"
+                    android:fontFamily="sans-serif-medium" />
+
+                <TextView
+                    android:id="@+id/quick5k"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_quick_pill"
+                    android:paddingStart="18dp"
+                    android:paddingEnd="18dp"
+                    android:paddingTop="9dp"
+                    android:paddingBottom="9dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="@string/quick_5k"
+                    android:textColor="@color/rowplus_text_secondary"
+                    android:textSize="12sp"
+                    android:fontFamily="sans-serif-medium" />
+
+                <TextView
+                    android:id="@+id/quick30min"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_quick_pill"
+                    android:paddingStart="18dp"
+                    android:paddingEnd="18dp"
+                    android:paddingTop="9dp"
+                    android:paddingBottom="9dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="@string/quick_30min"
+                    android:textColor="@color/rowplus_text_secondary"
+                    android:textSize="12sp"
+                    android:fontFamily="sans-serif-medium" />
+
+                <TextView
+                    android:id="@+id/quick10k"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_quick_pill"
+                    android:paddingStart="18dp"
+                    android:paddingEnd="18dp"
+                    android:paddingTop="9dp"
+                    android:paddingBottom="9dp"
+                    android:text="@string/quick_10k"
+                    android:textColor="@color/rowplus_text_secondary"
+                    android:textSize="12sp"
+                    android:fontFamily="sans-serif-medium" />
+            </LinearLayout>
+
+            <!-- Goal prompt -->
+            <LinearLayout
+                android:id="@+id/goalPromptRow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_marginEnd="6dp"
+                    android:src="@drawable/ic_goal_check" />
+
+                <TextView
+                    android:id="@+id/goalPromptText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/rowplus_text_muted"
+                    android:textSize="13sp"
+                    android:fontFamily="sans-serif-medium"
+                    tools:text="2 of 5 weekly rows — 3 more to hit your goal" />
+            </LinearLayout>
+
+            <!-- Spacer -->
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <!-- ===== BOTTOM DOCK ===== -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingBottom="4dp">
+
+                <!-- History -->
+                <LinearLayout
+                    android:id="@+id/dockHistory"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/bg_dock_btn"
+                    android:paddingStart="@dimen/dock_pad_h"
+                    android:paddingEnd="@dimen/dock_pad_h"
+                    android:paddingTop="@dimen/dock_pad_v"
+                    android:paddingBottom="@dimen/dock_pad_v"
+                    android:layout_marginEnd="10dp"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <ImageView
+                        android:layout_width="@dimen/dock_icon"
+                        android:layout_height="@dimen/dock_icon"
+                        android:layout_marginEnd="8dp"
+                        android:src="@drawable/ic_history"
+                        android:alpha="0.7" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/dock_history"
+                        android:textColor="@color/rowplus_text_secondary"
+                        android:textSize="13sp"
+                        android:fontFamily="sans-serif-medium" />
+                </LinearLayout>
+
+                <!-- Browser -->
+                <LinearLayout
+                    android:id="@+id/dockBrowser"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/bg_dock_btn"
+                    android:paddingStart="@dimen/dock_pad_h"
+                    android:paddingEnd="@dimen/dock_pad_h"
+                    android:paddingTop="@dimen/dock_pad_v"
+                    android:paddingBottom="@dimen/dock_pad_v"
+                    android:layout_marginEnd="10dp"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <ImageView
+                        android:layout_width="@dimen/dock_icon"
+                        android:layout_height="@dimen/dock_icon"
+                        android:layout_marginEnd="8dp"
+                        android:src="@drawable/ic_browser"
+                        android:alpha="0.7" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/dock_browser"
+                        android:textColor="@color/rowplus_text_secondary"
+                        android:textSize="13sp"
+                        android:fontFamily="sans-serif-medium" />
+                </LinearLayout>
+
+                <!-- Spotify -->
+                <LinearLayout
+                    android:id="@+id/dockSpotify"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/bg_dock_btn"
+                    android:paddingStart="@dimen/dock_pad_h"
+                    android:paddingEnd="@dimen/dock_pad_h"
+                    android:paddingTop="@dimen/dock_pad_v"
+                    android:paddingBottom="@dimen/dock_pad_v"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <ImageView
+                        android:layout_width="@dimen/dock_icon"
+                        android:layout_height="@dimen/dock_icon"
+                        android:layout_marginEnd="8dp"
+                        android:src="@drawable/ic_spotify"
+                        android:alpha="0.7" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/dock_spotify"
+                        android:textColor="@color/rowplus_text_secondary"
+                        android:textSize="13sp"
+                        android:fontFamily="sans-serif-medium" />
+                </LinearLayout>
+
+                <!-- Spacer -->
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
+
+                <!-- Clock -->
+                <TextView
+                    android:id="@+id/dockClock"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/rowplus_text_muted"
+                    android:textSize="13sp"
+                    android:fontFamily="sans-serif-medium"
+                    android:letterSpacing="0.03"
+                    android:paddingEnd="4dp"
+                    tools:text="SAT 8:42 AM" />
+            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
-</ScrollView>
-
+</FrameLayout>

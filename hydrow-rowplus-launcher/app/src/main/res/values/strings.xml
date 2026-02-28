@@ -1,11 +1,50 @@
 <resources>
     <string name="app_name">RowPlus</string>
+    <string name="logo_text">Row+</string>
+
+    <!-- Profile -->
+    <string name="greeting_welcome">Welcome back</string>
+    <string name="profile_ready">Ready to row?</string>
+
+    <!-- Dashboard stats -->
+    <string name="section_this_week">THIS WEEK</string>
+    <string name="stat_rows_label">Rows</string>
+    <string name="stat_distance_label">Distance</string>
+    <string name="stat_streak_label">Day Streak</string>
+    <string name="unit_km">km</string>
+
+    <!-- Last row card -->
+    <string name="last_row_title">LAST ROW</string>
+    <string name="label_distance">DISTANCE</string>
+    <string name="label_duration">DURATION</string>
+    <string name="label_split">SPLIT /500M</string>
+    <string name="label_avg_spm">AVG SPM</string>
+    <string name="badge_pr">PR</string>
+
+    <!-- Start button -->
+    <string name="start_row_plus">Start Row+</string>
+    <string name="start_subtitle">Free Row - Track Everything</string>
+
+    <!-- Quick row presets -->
+    <string name="quick_20min">20 min</string>
+    <string name="quick_5k">5,000 m</string>
+    <string name="quick_30min">30 min</string>
+    <string name="quick_10k">10,000 m</string>
+
+    <!-- Goal prompt -->
+    <string name="goal_prompt">%1$d of %2$d weekly rows - %3$d more to hit your goal</string>
+
+    <!-- Dock -->
+    <string name="dock_history">History</string>
+    <string name="dock_browser">Browser</string>
+    <string name="dock_spotify">Spotify</string>
+
+    <!-- Existing strings kept for compatibility -->
     <string name="subtitle">Custom launcher and local-first row shell for Hydrow.</string>
     <string name="active_profile_label">ACTIVE PROFILE</string>
     <string name="profile_hint">New rows and history save under %1$s.</string>
     <string name="profile_primary">You</string>
     <string name="profile_spouse">Wife</string>
-    <string name="start_row_plus">Start Row+</string>
     <string name="view_history">History</string>
     <string name="open_browser">Browser</string>
     <string name="open_spotify">Spotify</string>
@@ -35,4 +74,3 @@
     <string name="session_saved">Saved a local row for %1$s.</string>
     <string name="cancel">Cancel</string>
 </resources>
-

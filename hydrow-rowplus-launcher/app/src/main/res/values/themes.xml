@@ -1,8 +1,10 @@
 <resources>
     <style name="Theme.RowPlus" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/rowplus_action</item>
-        <item name="colorOnPrimary">@color/rowplus_action_text</item>
+        <item name="colorPrimary">@color/rowplus_amber</item>
+        <item name="colorOnPrimary">@color/rowplus_on_amber</item>
+        <item name="android:windowBackground">@color/rowplus_bg_deep</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:navigationBarColor">@color/rowplus_background</item>
+        <item name="android:navigationBarColor">@color/rowplus_bg_deep</item>
+        <item name="android:windowTranslucentStatus">true</item>
     </style>
 </resources>
