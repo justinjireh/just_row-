@@ -42,6 +42,10 @@ Live rowing metrics are not integrated yet.
   - current implementation status, installs, and rollback notes
 - [device_recon/HYDROW_PACKAGE_RECON.md](./device_recon/HYDROW_PACKAGE_RECON.md)
   - validated package and APK reconnaissance notes
+- `device_apks/HydrowLauncher.apk`
+  - pulled stock launcher APK, tracked via Git LFS
+- `device_apks/crew-base.apk`
+  - pulled Hydrow app APK, tracked via Git LFS
 - [LLM_HANDOFF_PROMPT.md](./LLM_HANDOFF_PROMPT.md)
   - general-purpose handoff prompt
 - [LLM_HANDOFF_PROMPT_CODING.md](./LLM_HANDOFF_PROMPT_CODING.md)
@@ -110,7 +114,6 @@ Some files stay local and are ignored on purpose:
 - downloaded Android SDK / Gradle toolchains
 - `platform-tools`
 - `mtkclient`
-- pulled APKs from the physical device
 - local build outputs
 - machine-specific `local.properties`
 - one-off binaries and utilities
@@ -123,6 +126,10 @@ These are excluded because they are:
 - generated artifacts
 - in some cases tied to a specific physical device
 
+Exception:
+
+- the two APKs in `device_apks/` are intentionally committed via Git LFS because they are core reverse-engineering inputs for telemetry work
+
 ## Recommended Next Work
 
 1. Replace mock local storage with Room / SQLite.
@@ -130,4 +137,3 @@ These are excluded because they are:
 3. Improve the launcher dashboard into a more polished appliance UI.
 4. Reverse engineer the Hydrow rowing app to map the real telemetry path.
 5. Replace mock rowing metrics with live hardware telemetry.
-

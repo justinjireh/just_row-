@@ -3,7 +3,7 @@
 toolchain/
 platform-tools/
 mtkclient/
-device_apks/
+device_apks/*
 
 # Third-party binaries / one-off utilities
 *.zip
@@ -22,6 +22,9 @@ update_zip/
 
 # Keep the Gradle wrapper binary in source control
 !hydrow-rowplus-launcher/gradle/wrapper/gradle-wrapper.jar
+
+# Keep pulled Hydrow APKs in source control via Git LFS
+!device_apks/*.apk
 
 # IDE noise
 .idea/
