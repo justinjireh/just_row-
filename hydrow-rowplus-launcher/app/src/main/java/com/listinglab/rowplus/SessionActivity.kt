@@ -34,7 +34,13 @@ class SessionActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         sessionStore = SessionStore(this)
-        val profile = UserProfile.fromStorageKey(intent.getStringExtra(EXTRA_PROFILE))
+        val profileKey = intent.getStringExtra(EXTRA_PROFILE)
+        val profile = profileKey?.let(sessionStore::getProfile)
+        if (profile == null) {
+            Toast.makeText(this, R.string.profile_missing, Toast.LENGTH_SHORT).show()
+            finish()
+            return
+        }
 
         binding.sessionProfileValue.text = profile.displayName
         binding.metricState.text = getString(R.string.metrics_stub)
@@ -72,6 +78,7 @@ class SessionActivity : AppCompatActivity() {
         val avgSplitSeconds = ((500.0 / distanceMeters.coerceAtLeast(1)) * elapsedSeconds)
             .toInt()
             .coerceIn(110, 240)
+        val estimatedCalories = estimateCalories(elapsedSeconds, profile.weightLbs)
 
         val session = RowSession(
             startedAtEpochMs = startedAtMs,
@@ -79,11 +86,15 @@ class SessionActivity : AppCompatActivity() {
             distanceMeters = distanceMeters,
             avgSplitSeconds = avgSplitSeconds,
             avgSpm = avgSpm,
+            estimatedCalories = estimatedCalories,
         )
 
         sessionStore.saveSession(profile, session)
-        Toast.makeText(this, getString(R.string.session_saved, profile.displayName), Toast.LENGTH_SHORT)
-            .show()
+        Toast.makeText(
+            this,
+            getString(R.string.session_saved, profile.displayName, estimatedCalories),
+            Toast.LENGTH_SHORT,
+        ).show()
         finish()
     }
 
@@ -98,6 +109,12 @@ class SessionActivity : AppCompatActivity() {
         binding.metricDistance.text = String.format(Locale.US, "%.2f km", distanceMeters / 1000.0)
         binding.metricSplit.text = formatSplit(avgSplitSeconds)
         binding.metricSpm.text = String.format(Locale.US, "%d", avgSpm)
+    }
+
+    private fun estimateCalories(durationSeconds: Long, weightLbs: Int): Int {
+        val weightKg = weightLbs * 0.45359237
+        val durationHours = durationSeconds / 3600.0
+        return (7.0 * weightKg * durationHours).toInt().coerceAtLeast(1)
     }
 
     private fun formatDuration(durationSeconds: Long): String {
@@ -116,4 +133,3 @@ class SessionActivity : AppCompatActivity() {
         const val EXTRA_PROFILE = "profile"
     }
 }
-

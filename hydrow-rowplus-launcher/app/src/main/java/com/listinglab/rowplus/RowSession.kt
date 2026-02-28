@@ -6,5 +6,5 @@ data class RowSession(
     val distanceMeters: Int,
     val avgSplitSeconds: Int,
     val avgSpm: Int,
+    val estimatedCalories: Int = 0,
 )
-

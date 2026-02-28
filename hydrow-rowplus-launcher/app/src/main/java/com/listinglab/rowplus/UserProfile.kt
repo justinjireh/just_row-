@@ -1,13 +1,15 @@
 package com.listinglab.rowplus
 
-enum class UserProfile(val storageKey: String, val displayName: String) {
-    PRIMARY("primary", "You"),
-    SPOUSE("spouse", "Wife");
-
+data class UserProfile(
+    val slotKey: String,
+    val displayName: String,
+    val heightInches: Int,
+    val weightLbs: Int,
+) {
     companion object {
-        fun fromStorageKey(value: String?): UserProfile {
-            return entries.firstOrNull { it.storageKey == value } ?: PRIMARY
-        }
+        const val SLOT_ONE = "slot_one"
+        const val SLOT_TWO = "slot_two"
+
+        val SLOT_KEYS = listOf(SLOT_ONE, SLOT_TWO)
     }
 }
-
