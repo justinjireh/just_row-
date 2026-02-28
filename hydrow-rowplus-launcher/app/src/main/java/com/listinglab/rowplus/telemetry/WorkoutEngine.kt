@@ -5,6 +5,16 @@ package com.listinglab.rowplus.telemetry
  *
  * Accumulates distance from Di2 deltas, extracts watts/SPM from Ds2 strokes,
  * and publishes WorkoutMetrics at each stroke boundary.
+ *
+ * ## Idle detection
+ *
+ * When no Di2 or Ds2 packet arrives for [IDLE_THRESHOLD_MS], the engine
+ * considers the rower idle. During idle:
+ * - Elapsed time stops advancing (paused at last-data moment)
+ * - SPM drops to 0
+ * - Other accumulated metrics (distance, strokes, calories) are preserved
+ *
+ * Metrics resume advancing as soon as a new packet arrives.
  */
 class WorkoutEngine {
 
@@ -22,6 +32,20 @@ class WorkoutEngine {
     // Calorie computation accumulator
     private var totalWattSeconds: Double = 0.0
 
+    // Idle detection — tracks wall-clock time of last data packet
+    @Volatile private var lastDataWallClock: Long = 0L
+
+    // Accumulated active rowing time (only advances while data is flowing)
+    private var activeRowingMs: Long = 0L
+    private var lastActiveTickWallClock: Long = 0L
+
+    /** True when the rower is idle (no packets for [IDLE_THRESHOLD_MS]). */
+    val isIdle: Boolean
+        get() {
+            if (lastDataWallClock == 0L) return true
+            return System.currentTimeMillis() - lastDataWallClock > IDLE_THRESHOLD_MS
+        }
+
     fun reset() {
         totalDistanceMeters = 0.0
         strokeCount = 0
@@ -33,6 +57,9 @@ class WorkoutEngine {
         workoutStartTimestamp = 0L
         lastDi2Timestamp = 0L
         totalWattSeconds = 0.0
+        lastDataWallClock = 0L
+        activeRowingMs = 0L
+        lastActiveTickWallClock = 0L
     }
 
     /**
@@ -43,6 +70,8 @@ class WorkoutEngine {
         if (workoutStartTimestamp == 0L) {
             workoutStartTimestamp = packet.timestamp
         }
+
+        markActive()
 
         // Accumulate delta distance (each sample is a small increment in meters)
         totalDistanceMeters += packet.distance
@@ -66,6 +95,7 @@ class WorkoutEngine {
      */
     fun onDs2(packet: Ds2Packet) {
         strokeCount++
+        markActive()
 
         // Average watts for this stroke
         currentWatts = packet.averagePower.toInt()
@@ -87,12 +117,10 @@ class WorkoutEngine {
     /**
      * Snapshot the current workout metrics for UI display.
      */
-    fun snapshot(currentTimeMs: Long): WorkoutMetrics {
-        val elapsed = if (workoutStartTimestamp > 0) {
-            (currentTimeMs - workoutStartTimestamp) / 1000L
-        } else {
-            0L
-        }
+    fun snapshot(@Suppress("UNUSED_PARAMETER") currentTimeMs: Long): WorkoutMetrics {
+        updateActiveTime()
+
+        val elapsed = activeRowingMs / 1000L
 
         val distanceMeters = totalDistanceMeters.toInt()
 
@@ -109,15 +137,55 @@ class WorkoutEngine {
             if (elapsed > 0) 1 else 0
         )
 
+        // When idle, show SPM as 0 (rower has stopped)
+        val displaySpm = if (isIdle) 0 else currentSpm
+
         return WorkoutMetrics(
             elapsedSeconds = elapsed,
             totalDistanceMeters = distanceMeters,
             splitSeconds = splitSeconds,
-            strokesPerMinute = currentSpm,
-            watts = currentWatts,
+            strokesPerMinute = displaySpm,
+            watts = if (isIdle) 0 else currentWatts,
             strokeCount = strokeCount,
             calories = calories,
             peakForce = maxOf(peakForce, lastCompletedPeakForce),
         )
+    }
+
+    /** Record that live data just arrived. */
+    private fun markActive() {
+        val now = System.currentTimeMillis()
+        updateActiveTime()
+        lastDataWallClock = now
+
+        // Start a new active segment if we were idle
+        if (lastActiveTickWallClock == 0L || now - lastActiveTickWallClock > IDLE_THRESHOLD_MS) {
+            lastActiveTickWallClock = now
+        }
+    }
+
+    /**
+     * Advance [activeRowingMs] by the time since [lastActiveTickWallClock],
+     * but only if we are not idle.
+     */
+    private fun updateActiveTime() {
+        val now = System.currentTimeMillis()
+        if (lastActiveTickWallClock > 0 && !isIdle) {
+            val delta = now - lastActiveTickWallClock
+            if (delta in 1..MAX_ACTIVE_TICK_MS) {
+                activeRowingMs += delta
+            }
+        }
+        if (!isIdle) {
+            lastActiveTickWallClock = now
+        }
+    }
+
+    companion object {
+        /** If no Di2/Ds2 data for this long, consider rower idle. */
+        const val IDLE_THRESHOLD_MS = 3_000L
+
+        /** Cap single active-time increments to avoid clock jumps. */
+        private const val MAX_ACTIVE_TICK_MS = 5_000L
     }
 }

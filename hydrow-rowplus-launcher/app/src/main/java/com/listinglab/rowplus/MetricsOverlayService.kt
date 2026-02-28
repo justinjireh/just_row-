@@ -4,7 +4,9 @@ import android.app.Service
 import android.content.Intent
 import android.graphics.PixelFormat
 import android.os.Binder
+import android.os.Build
 import android.os.IBinder
+import android.provider.Settings
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -33,6 +35,10 @@ class MetricsOverlayService : Service() {
 
     override fun onCreate() {
         super.onCreate()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(this)) {
+            stopSelf()
+            return
+        }
         windowManager = getSystemService(WINDOW_SERVICE) as WindowManager
         createOverlay()
     }
@@ -73,7 +79,7 @@ class MetricsOverlayService : Service() {
 
         try {
             windowManager?.addView(overlayView, layoutParams)
-        } catch (_: SecurityException) {
+        } catch (_: Exception) {
             stopSelf()
             return
         }

@@ -15,6 +15,9 @@
     <color name="rowplus_amber_12">#1FE08A1E</color>
     <color name="rowplus_amber_30">#4DE08A1E</color>
 
+    <!-- Error / stop -->
+    <color name="rowplus_stop_red">#FFEF4444</color>
+
     <!-- Accent: teal -->
     <color name="rowplus_teal">#FF4ECDC4</color>
     <color name="rowplus_teal_20">#334ECDC4</color>
@@ -43,6 +46,10 @@
     <!-- PR badge -->
     <color name="rowplus_pr_bg">#1A4ECDC4</color>
     <color name="rowplus_pr_border">#334ECDC4</color>
+
+    <!-- Dock glass -->
+    <color name="rowplus_dock_glass">#B3091218</color>
+    <color name="rowplus_dock_glass_border">#18FFFFFF</color>
 
     <!-- Legacy compat aliases -->
     <color name="rowplus_background">#FF060D10</color>

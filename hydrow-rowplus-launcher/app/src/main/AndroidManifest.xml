@@ -4,6 +4,12 @@
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
     <queries>
+        <!-- Allow querying all launchable apps for the session dock -->
+        <intent>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent>
+        <!-- Specific packages for direct lookups -->
         <package android:name="com.android.browser" />
         <package android:name="com.android.settings" />
         <package android:name="com.spotify.music" />

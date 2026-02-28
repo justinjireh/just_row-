@@ -39,4 +39,12 @@
 
     <!-- Left panel width weight ratio handled in layout -->
     <dimen name="left_panel_min_width">320dp</dimen>
+
+    <!-- Session dock -->
+    <dimen name="dock_item_width">76dp</dimen>
+    <dimen name="dock_item_icon">36dp</dimen>
+    <dimen name="dock_item_spacing">10dp</dimen>
+    <dimen name="dock_bar_pad_h">20dp</dimen>
+    <dimen name="dock_bar_pad_v">10dp</dimen>
+    <dimen name="dock_bar_radius">16dp</dimen>
 </resources>

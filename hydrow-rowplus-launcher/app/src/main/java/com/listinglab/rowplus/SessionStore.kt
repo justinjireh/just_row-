@@ -13,11 +13,27 @@ class SessionStore(context: Context) {
         if (active != null) {
             return active
         }
-        return UserProfile.SLOT_KEYS.firstNotNullOfOrNull(::getProfile)
+        return enabledSlotKeys().firstNotNullOfOrNull(::getProfile)
     }
 
     fun setActiveProfile(profile: UserProfile) {
         prefs.edit().putString(KEY_ACTIVE_PROFILE_SLOT, profile.slotKey).apply()
+    }
+
+    fun isSecondProfileEnabled(): Boolean {
+        return prefs.getBoolean(KEY_SECOND_PROFILE_ENABLED, true)
+    }
+
+    fun setSecondProfileEnabled(enabled: Boolean) {
+        prefs.edit().putBoolean(KEY_SECOND_PROFILE_ENABLED, enabled).apply()
+
+        if (!enabled && getActiveProfile()?.slotKey == UserProfile.SLOT_TWO) {
+            getProfile(UserProfile.SLOT_ONE)?.let(::setActiveProfile)
+        }
+    }
+
+    fun listSelectableProfiles(): List<UserProfile> {
+        return enabledSlotKeys().mapNotNull(::getProfile)
     }
 
     fun getProfile(slotKey: String): UserProfile? {
@@ -48,7 +64,7 @@ class SessionStore(context: Context) {
         }
     }
 
-    fun firstEmptySlot(): String? = UserProfile.SLOT_KEYS.firstOrNull { getProfile(it) == null }
+    fun firstEmptySlot(): String? = enabledSlotKeys().firstOrNull { getProfile(it) == null }
 
     fun listSessions(profile: UserProfile): List<RowSession> {
         val raw = prefs.getString(historyKey(profile.slotKey), "[]") ?: "[]"
@@ -93,8 +109,17 @@ class SessionStore(context: Context) {
 
     private fun historyKey(slotKey: String): String = "sessions_$slotKey"
 
+    private fun enabledSlotKeys(): List<String> {
+        return if (isSecondProfileEnabled()) {
+            UserProfile.SLOT_KEYS
+        } else {
+            listOf(UserProfile.SLOT_ONE)
+        }
+    }
+
     companion object {
         private const val KEY_ACTIVE_PROFILE_SLOT = "active_profile_slot"
+        private const val KEY_SECOND_PROFILE_ENABLED = "second_profile_enabled"
         private const val MAX_SESSIONS = 200
     }
 }

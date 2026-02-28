@@ -6,19 +6,38 @@
     android:background="@color/rowplus_bg_deep"
     android:fitsSystemWindows="true">
 
-    <!-- ===== TOP-RIGHT LOGO (admin long-press target) ===== -->
-    <TextView
-        android:id="@+id/logoText"
+    <!-- ===== TOP-RIGHT APP CONTROLS ===== -->
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="top|end"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="28dp"
-        android:text="@string/logo_text"
-        android:textColor="@color/rowplus_text_muted"
-        android:textSize="14sp"
-        android:fontFamily="sans-serif-medium"
-        android:letterSpacing="0.2" />
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="24dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/settingsButton"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/bg_profile_btn"
+            android:contentDescription="@string/app_settings_title"
+            android:padding="10dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_settings_phosphor"
+            android:tint="@color/rowplus_text_secondary" />
+
+        <TextView
+            android:id="@+id/logoText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/logo_text"
+            android:textColor="@color/rowplus_text_muted"
+            android:textSize="14sp"
+            android:fontFamily="sans-serif-medium"
+            android:letterSpacing="0.2" />
+    </LinearLayout>
 
     <!-- ===== MAIN HORIZONTAL LAYOUT ===== -->
     <LinearLayout

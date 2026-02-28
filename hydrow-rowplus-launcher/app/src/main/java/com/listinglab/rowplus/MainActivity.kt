@@ -17,6 +17,7 @@ import android.view.View
 import android.view.ViewGroup.LayoutParams
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
@@ -35,6 +36,7 @@ class MainActivity : AppCompatActivity() {
     private val clockHandler = Handler(Looper.getMainLooper())
 
     private lateinit var logoText: TextView
+    private lateinit var settingsButton: ImageView
     private lateinit var profileName: TextView
     private lateinit var profileSubtitle: TextView
     private lateinit var profileButton: TextView
@@ -90,6 +92,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun bindViews() {
         logoText = findViewById(R.id.logoText)
+        settingsButton = findViewById(R.id.settingsButton)
         profileName = findViewById(R.id.profileName)
         profileSubtitle = findViewById(R.id.profileSubtitle)
         profileButton = findViewById(R.id.profileBtnPrimary)
@@ -113,6 +116,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupListeners() {
+        settingsButton.setOnClickListener { showAppSettingsMenu() }
         profileButton.setOnClickListener { onProfileButtonTapped() }
         profileButton.setOnLongClickListener {
             val activeProfile = sessionStore.getActiveProfile()
@@ -147,7 +151,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onProfileButtonTapped() {
-        val profiles = UserProfile.SLOT_KEYS.mapNotNull(sessionStore::getProfile)
+        val profiles = sessionStore.listSelectableProfiles()
         when (profiles.size) {
             0 -> showProfileEditor(UserProfile.SLOT_ONE, null)
             1 -> {
@@ -159,12 +163,53 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onAddProfileTapped() {
+        if (!sessionStore.isSecondProfileEnabled()) {
+            Toast.makeText(this, R.string.profile_second_enable_first, Toast.LENGTH_SHORT).show()
+            return
+        }
         val emptySlot = sessionStore.firstEmptySlot()
         if (emptySlot == null) {
             Toast.makeText(this, R.string.profile_slots_full, Toast.LENGTH_SHORT).show()
             return
         }
         showProfileEditor(emptySlot, null)
+    }
+
+    private fun showAppSettingsMenu() {
+        val secondEnabled = sessionStore.isSecondProfileEnabled()
+        val actions = arrayOf(
+            getString(R.string.app_settings_wifi),
+            getString(R.string.app_settings_open_store),
+            getString(R.string.admin_open_settings),
+            if (secondEnabled) {
+                getString(R.string.profile_second_action_disable)
+            } else {
+                getString(R.string.profile_second_action_enable)
+            },
+        )
+
+        AlertDialog.Builder(this)
+            .setTitle(R.string.app_settings_title)
+            .setItems(actions) { _, which ->
+                when (which) {
+                    0 -> openWifiSettings()
+                    1 -> launchPackage("com.aurora.store", getString(R.string.store_missing))
+                    2 -> startActivity(Intent(Settings.ACTION_SETTINGS))
+                    3 -> {
+                        val enableSecond = !secondEnabled
+                        sessionStore.setSecondProfileEnabled(enableSecond)
+                        refreshUi()
+
+                        Toast.makeText(
+                            this,
+                            if (enableSecond) R.string.profile_second_enabled else R.string.profile_second_disabled,
+                            Toast.LENGTH_SHORT,
+                        ).show()
+                    }
+                }
+            }
+            .setNegativeButton(android.R.string.cancel, null)
+            .show()
     }
 
     private fun showProfilePicker(profiles: List<UserProfile>) {
@@ -315,7 +360,10 @@ class MainActivity : AppCompatActivity() {
         val activeProfile = sessionStore.getActiveProfile()
 
         profileButton.text = activeProfile?.displayName ?: getString(R.string.add_profile_short)
-        updateProfileButtonStates(activeProfile != null, sessionStore.firstEmptySlot() != null)
+        updateProfileButtonStates(
+            hasActiveProfile = activeProfile != null,
+            canAddMore = sessionStore.firstEmptySlot() != null,
+        )
 
         if (activeProfile == null) {
             profileName.text = getString(R.string.profile_empty_title)
@@ -570,6 +618,14 @@ class MainActivity : AppCompatActivity() {
     private fun openHomeSettings() {
         try {
             startActivity(Intent(Settings.ACTION_HOME_SETTINGS))
+        } catch (_: ActivityNotFoundException) {
+            startActivity(Intent(Settings.ACTION_SETTINGS))
+        }
+    }
+
+    private fun openWifiSettings() {
+        try {
+            startActivity(Intent(Settings.ACTION_WIFI_SETTINGS))
         } catch (_: ActivityNotFoundException) {
             startActivity(Intent(Settings.ACTION_SETTINGS))
         }
