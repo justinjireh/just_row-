@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
     <queries>
         <package android:name="com.android.browser" />
         <package android:name="com.android.settings" />
         <package android:name="com.spotify.music" />
         <package android:name="com.truerowing.crew" />
+        <package android:name="com.netflix.mediaclient" />
+        <package android:name="com.google.android.youtube" />
+        <package android:name="com.hulu.plus" />
+        <package android:name="com.disney.disneyplus" />
+        <package android:name="com.hbo.hbonow" />
     </queries>
 
     <application
@@ -16,14 +23,30 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RowPlus">
 
+        <service
+            android:name=".MetricsOverlayService"
+            android:exported="false" />
+
+        <activity
+            android:name=".PostRowActivity"
+            android:exported="false"
+            android:screenOrientation="landscape" />
+
         <activity
             android:name=".SessionActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="landscape" />
+
+        <activity
+            android:name=".PreRowActivity"
+            android:exported="false"
+            android:screenOrientation="landscape" />
 
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:launchMode="singleTask">
+            android:launchMode="singleTask"
+            android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -35,4 +58,3 @@
     </application>
 
 </manifest>
-

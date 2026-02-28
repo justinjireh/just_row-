@@ -1,136 +1,543 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/rowplus_background"
-    android:orientation="vertical"
-    android:padding="24dp">
+    android:background="@color/rowplus_bg_deep">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/session_title"
-        android:textColor="@color/rowplus_on_background"
-        android:textSize="30sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/session_profile_label"
-        android:textColor="@color/rowplus_muted"
-        android:textSize="12sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/sessionProfileValue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:textColor="@color/rowplus_on_background"
-        android:textSize="20sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/metricState"
+    <LinearLayout
+        android:id="@+id/metricsFullView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:background="@color/rowplus_surface"
-        android:padding="16dp"
-        android:textColor="@color/rowplus_muted"
-        android:textSize="14sp" />
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:paddingStart="32dp"
+        android:paddingEnd="24dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="16dp">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="@string/metric_duration_label"
-        android:textColor="@color/rowplus_muted"
-        android:textSize="12sp"
-        android:textStyle="bold" />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="65"
+            android:layout_marginEnd="20dp"
+            android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/metricDuration"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/metric_duration_default"
-        android:textColor="@color/rowplus_on_background"
-        android:textSize="28sp"
-        android:textStyle="bold" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/metric_distance_label"
-        android:textColor="@color/rowplus_muted"
-        android:textSize="12sp"
-        android:textStyle="bold" />
+                <View
+                    android:id="@+id/liveIndicator"
+                    android:layout_width="8dp"
+                    android:layout_height="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/bg_live_dot" />
 
-    <TextView
-        android:id="@+id/metricDistance"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/metric_distance_default"
-        android:textColor="@color/rowplus_on_background"
-        android:textSize="28sp"
-        android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/sessionModeLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    android:letterSpacing="0.15"
+                    android:textColor="@color/rowplus_text_muted"
+                    android:textSize="12sp"
+                    tools:text="FREE ROW" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/metric_split_label"
-        android:textColor="@color/rowplus_muted"
-        android:textSize="12sp"
-        android:textStyle="bold" />
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
 
-    <TextView
-        android:id="@+id/metricSplit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/metric_split_default"
-        android:textColor="@color/rowplus_on_background"
-        android:textSize="28sp"
-        android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/sessionProfileLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    android:textColor="@color/rowplus_text_muted"
+                    android:textSize="12sp"
+                    tools:text="Alex" />
+            </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/metric_spm_label"
-        android:textColor="@color/rowplus_muted"
-        android:textSize="12sp"
-        android:textStyle="bold" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/metricSpm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/metric_spm_default"
-        android:textColor="@color/rowplus_on_background"
-        android:textSize="28sp"
-        android:textStyle="bold" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    android:letterSpacing="0.2"
+                    android:text="DISTANCE"
+                    android:textColor="@color/rowplus_text_muted"
+                    android:textSize="13sp" />
 
-    <Button
-        android:id="@+id/startStopButton"
+                <TextView
+                    android:id="@+id/metricDistanceHero"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-light"
+                    android:letterSpacing="-0.04"
+                    android:lineSpacingMultiplier="0.85"
+                    android:textColor="@color/rowplus_text_primary"
+                    android:textSize="72sp"
+                    tools:text="2,450" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="-4dp"
+                    android:fontFamily="sans-serif"
+                    android:text="meters"
+                    android:textColor="@color/rowplus_text_muted"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/bg_stat_tile"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-medium"
+                        android:letterSpacing="0.15"
+                        android:text="SPM"
+                        android:textColor="@color/rowplus_text_muted"
+                        android:textSize="11sp" />
+
+                    <TextView
+                        android:id="@+id/metricSpm"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:fontFamily="sans-serif"
+                        android:textColor="@color/rowplus_text_primary"
+                        android:textSize="36sp"
+                        android:textStyle="bold"
+                        tools:text="26" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/bg_stat_tile"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-medium"
+                        android:letterSpacing="0.15"
+                        android:text="DURATION"
+                        android:textColor="@color/rowplus_text_muted"
+                        android:textSize="11sp" />
+
+                    <TextView
+                        android:id="@+id/metricDuration"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:fontFamily="sans-serif"
+                        android:textColor="@color/rowplus_text_primary"
+                        android:textSize="36sp"
+                        android:textStyle="bold"
+                        tools:text="12:34" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_stat_tile"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-medium"
+                        android:letterSpacing="0.15"
+                        android:text="SPLIT /500M"
+                        android:textColor="@color/rowplus_text_muted"
+                        android:textSize="11sp" />
+
+                    <TextView
+                        android:id="@+id/metricSplit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:fontFamily="sans-serif"
+                        android:textColor="@color/rowplus_text_primary"
+                        android:textSize="36sp"
+                        android:textStyle="bold"
+                        tools:text="2:27" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
+                    android:orientation="vertical"
+                    android:padding="12dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-medium"
+                        android:letterSpacing="0.15"
+                        android:text="CAL"
+                        android:textColor="@color/rowplus_text_faint"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/metricCalories"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:textColor="@color/rowplus_text_secondary"
+                        android:textSize="22sp"
+                        tools:text="186" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
+                    android:orientation="vertical"
+                    android:padding="12dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-medium"
+                        android:letterSpacing="0.15"
+                        android:text="WATTS"
+                        android:textColor="@color/rowplus_text_faint"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/metricWatts"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:textColor="@color/rowplus_text_secondary"
+                        android:textSize="22sp"
+                        tools:text="142" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:padding="12dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-medium"
+                        android:letterSpacing="0.15"
+                        android:text="STROKES"
+                        android:textColor="@color/rowplus_text_faint"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/metricStrokes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:textColor="@color/rowplus_text_secondary"
+                        android:textSize="22sp"
+                        tools:text="312" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <FrameLayout
+                android:id="@+id/targetProgressContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:visibility="gone"
+                tools:visibility="visible">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="4dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/bg_progress_track" />
+
+                <View
+                    android:id="@+id/targetProgressFill"
+                    android:layout_width="0dp"
+                    android:layout_height="4dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/bg_progress_fill" />
+
+                <TextView
+                    android:id="@+id/targetProgressLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|top"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:textColor="@color/rowplus_teal"
+                    android:textSize="11sp"
+                    tools:text="62% complete" />
+            </FrameLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="35"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/splitChartContainer"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:background="@drawable/bg_stat_tile"
+                android:orientation="vertical"
+                android:padding="14dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    android:letterSpacing="0.15"
+                    android:text="SPLIT CHART"
+                    android:textColor="@color/rowplus_text_muted"
+                    android:textSize="10sp" />
+
+                <LinearLayout
+                    android:id="@+id/splitChartBars"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:layout_marginTop="8dp"
+                    android:gravity="bottom"
+                    android:orientation="horizontal" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="10dp"
+                android:fontFamily="sans-serif-medium"
+                android:letterSpacing="0.15"
+                android:text="LAUNCH MEDIA"
+                android:textColor="@color/rowplus_text_faint"
+                android:textSize="10sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/mediaNetflix"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/bg_media_tile"
+                        android:fontFamily="sans-serif-medium"
+                        android:gravity="center"
+                        android:paddingStart="16dp"
+                        android:paddingTop="10dp"
+                        android:paddingEnd="16dp"
+                        android:paddingBottom="10dp"
+                        android:text="Netflix"
+                        android:textColor="@color/rowplus_text_secondary"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/mediaYoutube"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/bg_media_tile"
+                        android:fontFamily="sans-serif-medium"
+                        android:gravity="center"
+                        android:paddingStart="16dp"
+                        android:paddingTop="10dp"
+                        android:paddingEnd="16dp"
+                        android:paddingBottom="10dp"
+                        android:text="YouTube"
+                        android:textColor="@color/rowplus_text_secondary"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/mediaSpotify"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_media_tile"
+                        android:fontFamily="sans-serif-medium"
+                        android:gravity="center"
+                        android:paddingStart="16dp"
+                        android:paddingTop="10dp"
+                        android:paddingEnd="16dp"
+                        android:paddingBottom="10dp"
+                        android:text="Spotify"
+                        android:textColor="@color/rowplus_text_secondary"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/mediaHulu"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/bg_media_tile"
+                        android:fontFamily="sans-serif-medium"
+                        android:gravity="center"
+                        android:paddingStart="16dp"
+                        android:paddingTop="10dp"
+                        android:paddingEnd="16dp"
+                        android:paddingBottom="10dp"
+                        android:text="Hulu"
+                        android:textColor="@color/rowplus_text_secondary"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/mediaDisney"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/bg_media_tile"
+                        android:fontFamily="sans-serif-medium"
+                        android:gravity="center"
+                        android:paddingStart="16dp"
+                        android:paddingTop="10dp"
+                        android:paddingEnd="16dp"
+                        android:paddingBottom="10dp"
+                        android:text="Disney+"
+                        android:textColor="@color/rowplus_text_secondary"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/mediaHbo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/bg_media_tile"
+                        android:fontFamily="sans-serif-medium"
+                        android:gravity="center"
+                        android:paddingStart="16dp"
+                        android:paddingTop="10dp"
+                        android:paddingEnd="16dp"
+                        android:paddingBottom="10dp"
+                        android:text="HBO"
+                        android:textColor="@color/rowplus_text_secondary"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/mediaBrowser"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_media_tile"
+                        android:fontFamily="sans-serif-medium"
+                        android:gravity="center"
+                        android:paddingStart="16dp"
+                        android:paddingTop="10dp"
+                        android:paddingEnd="16dp"
+                        android:paddingBottom="10dp"
+                        android:text="Web"
+                        android:textColor="@color/rowplus_text_secondary"
+                        android:textSize="12sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <LinearLayout
+                android:id="@+id/stopButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_stop_btn"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif"
+                    android:letterSpacing="0.1"
+                    android:text="FINISH &amp; SAVE"
+                    android:textColor="@color/rowplus_text_primary"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/bottomProgressBar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:backgroundTint="@color/rowplus_action"
-        android:text="@string/start_mock_session"
-        android:textAllCaps="false"
-        android:textColor="@color/rowplus_action_text" />
+        android:layout_height="3dp"
+        android:layout_gravity="bottom"
+        android:visibility="gone">
 
-    <Button
-        android:id="@+id/finishButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="@string/cancel"
-        android:textAllCaps="false" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/rowplus_surface_solid" />
 
-</LinearLayout>
-
+        <View
+            android:id="@+id/bottomProgressFill"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="@color/rowplus_amber" />
+    </FrameLayout>
+</FrameLayout>

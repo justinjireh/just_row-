@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/overlayRoot"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:background="@drawable/bg_overlay_bar"
+    android:elevation="16dp"
+    android:minWidth="420dp"
+    android:paddingStart="16dp"
+    android:paddingTop="10dp"
+    android:paddingEnd="12dp"
+    android:paddingBottom="10dp">
+
+    <View
+        android:layout_width="6dp"
+        android:layout_height="6dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/bg_live_dot" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:letterSpacing="0.1"
+            android:text="DIST"
+            android:textColor="@color/rowplus_text_faint"
+            android:textSize="9sp" />
+
+        <TextView
+            android:id="@+id/overlayDistance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif"
+            android:textColor="@color/rowplus_text_primary"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            tools:text="2,450m" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:letterSpacing="0.1"
+            android:text="TIME"
+            android:textColor="@color/rowplus_text_faint"
+            android:textSize="9sp" />
+
+        <TextView
+            android:id="@+id/overlayDuration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif"
+            android:textColor="@color/rowplus_text_primary"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            tools:text="12:34" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:letterSpacing="0.1"
+            android:text="SPM"
+            android:textColor="@color/rowplus_text_faint"
+            android:textSize="9sp" />
+
+        <TextView
+            android:id="@+id/overlaySpm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif"
+            android:textColor="@color/rowplus_text_primary"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            tools:text="26" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:letterSpacing="0.1"
+            android:text="SPLIT"
+            android:textColor="@color/rowplus_text_faint"
+            android:textSize="9sp" />
+
+        <TextView
+            android:id="@+id/overlaySplit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif"
+            android:textColor="@color/rowplus_text_primary"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            tools:text="2:27" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/overlayExpandBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_overlay_expand"
+        android:fontFamily="sans-serif"
+        android:letterSpacing="0.08"
+        android:paddingStart="12dp"
+        android:paddingTop="6dp"
+        android:paddingEnd="12dp"
+        android:paddingBottom="6dp"
+        android:text="EXPAND"
+        android:textColor="@color/rowplus_amber_soft"
+        android:textSize="11sp"
+        android:textStyle="bold" />
+</LinearLayout>

@@ -2,14 +2,20 @@ package com.listinglab.rowplus
 
 import android.content.ActivityNotFoundException
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.provider.Settings
+import android.text.Editable
+import android.text.InputFilter
+import android.text.TextWatcher
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup.LayoutParams
+import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -175,9 +181,14 @@ class MainActivity : AppCompatActivity() {
 
     private fun showProfileEditor(slotKey: String, existing: UserProfile?) {
         val dialogView = layoutInflater.inflate(R.layout.dialog_profile_setup, null)
+        val titleView = dialogView.findViewById<TextView>(R.id.profileDialogTitle)
         val nameInput = dialogView.findViewById<EditText>(R.id.profileNameInput)
         val heightInput = dialogView.findViewById<EditText>(R.id.profileHeightInput)
         val weightInput = dialogView.findViewById<EditText>(R.id.profileWeightInput)
+        val heightPreview = dialogView.findViewById<TextView>(R.id.profileHeightPreview)
+        val weightPreview = dialogView.findViewById<TextView>(R.id.profileWeightPreview)
+        val cancelButton = dialogView.findViewById<TextView>(R.id.profileDialogCancelButton)
+        val saveButton = dialogView.findViewById<TextView>(R.id.profileDialogSaveButton)
 
         if (existing != null) {
             nameInput.setText(existing.displayName)
@@ -185,69 +196,119 @@ class MainActivity : AppCompatActivity() {
             weightInput.setText(existing.weightLbs.toString())
         }
 
-        val titleRes = if (existing == null) {
+        val titleText = if (existing == null) {
             R.string.profile_dialog_add_title
         } else {
             R.string.profile_dialog_edit_title
         }
+        titleView.setText(titleText)
+
+        heightInput.filters = arrayOf(InputFilter.LengthFilter(2))
+        weightInput.filters = arrayOf(InputFilter.LengthFilter(3))
+
+        val syncMeasurementPreview = {
+            val heightInches = heightInput.text.toString().trim().toIntOrNull()
+            val weightLbs = weightInput.text.toString().trim().toIntOrNull()
+
+            heightPreview.text = if (heightInches != null && heightInches in 36..96) {
+                val feet = heightInches / 12
+                val inches = heightInches % 12
+                getString(R.string.profile_height_preview_format, feet, inches)
+            } else {
+                getString(R.string.profile_height_preview_default)
+            }
+
+            weightPreview.text = if (weightLbs != null && weightLbs in 50..700) {
+                getString(R.string.profile_weight_preview_format, weightLbs)
+            } else {
+                getString(R.string.profile_weight_preview_default)
+            }
+        }
+
+        val measurementWatcher = object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                syncMeasurementPreview()
+            }
+
+            override fun afterTextChanged(s: Editable?) = Unit
+        }
+        heightInput.addTextChangedListener(measurementWatcher)
+        weightInput.addTextChangedListener(measurementWatcher)
+        syncMeasurementPreview()
 
         val dialog = AlertDialog.Builder(this)
-            .setTitle(titleRes)
             .setView(dialogView)
-            .setNegativeButton(android.R.string.cancel, null)
-            .setPositiveButton(R.string.profile_dialog_save, null)
             .create()
 
-        dialog.setOnShowListener {
-            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
-                val displayName = nameInput.text.toString().trim()
-                val heightInches = heightInput.text.toString().trim().toIntOrNull()
-                val weightLbs = weightInput.text.toString().trim().toIntOrNull()
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
-                var hasError = false
-
-                if (displayName.isBlank()) {
-                    nameInput.error = getString(R.string.profile_name_required)
-                    hasError = true
+        fun commitProfile() {
+            val displayName = nameInput.text.toString()
+                .trim()
+                .split(Regex("\\s+"))
+                .filter { it.isNotBlank() }
+                .joinToString(" ") { part ->
+                    part.lowercase(Locale.US).replaceFirstChar { char ->
+                        if (char.isLowerCase()) char.titlecase(Locale.US) else char.toString()
+                    }
                 }
+            val heightInches = heightInput.text.toString().trim().toIntOrNull()
+            val weightLbs = weightInput.text.toString().trim().toIntOrNull()
 
-                if (heightInches == null || heightInches !in 36..96) {
-                    heightInput.error = getString(R.string.profile_height_required)
-                    hasError = true
-                }
+            var hasError = false
 
-                if (weightLbs == null || weightLbs !in 50..700) {
-                    weightInput.error = getString(R.string.profile_weight_required)
-                    hasError = true
-                }
+            if (displayName.isBlank()) {
+                nameInput.error = getString(R.string.profile_name_required)
+                hasError = true
+            }
 
-                if (hasError) {
-                    return@setOnClickListener
-                }
+            if (heightInches == null || heightInches !in 36..96) {
+                heightInput.error = getString(R.string.profile_height_required)
+                hasError = true
+            }
 
-                val safeHeight = heightInches ?: return@setOnClickListener
-                val safeWeight = weightLbs ?: return@setOnClickListener
+            if (weightLbs == null || weightLbs !in 50..700) {
+                weightInput.error = getString(R.string.profile_weight_required)
+                hasError = true
+            }
 
-                val saved = UserProfile(
-                    slotKey = slotKey,
-                    displayName = displayName,
-                    heightInches = safeHeight,
-                    weightLbs = safeWeight,
-                )
+            if (hasError) {
+                return
+            }
 
-                sessionStore.saveProfile(saved)
-                sessionStore.setActiveProfile(saved)
-                refreshUi()
-                Toast.makeText(
-                    this,
-                    getString(R.string.profile_saved, saved.displayName),
-                    Toast.LENGTH_SHORT,
-                ).show()
-                dialog.dismiss()
+            val saved = UserProfile(
+                slotKey = slotKey,
+                displayName = displayName,
+                heightInches = heightInches ?: return,
+                weightLbs = weightLbs ?: return,
+            )
+
+            sessionStore.saveProfile(saved)
+            sessionStore.setActiveProfile(saved)
+            refreshUi()
+            Toast.makeText(
+                this,
+                getString(R.string.profile_saved, saved.displayName),
+                Toast.LENGTH_SHORT,
+            ).show()
+            dialog.dismiss()
+        }
+
+        cancelButton.setOnClickListener { dialog.dismiss() }
+        saveButton.setOnClickListener { commitProfile() }
+        weightInput.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                commitProfile()
+                true
+            } else {
+                false
             }
         }
 
         dialog.show()
+        nameInput.requestFocus()
     }
 
     private fun refreshUi() {
@@ -423,8 +484,8 @@ class MainActivity : AppCompatActivity() {
             return
         }
 
-        val intent = Intent(this, SessionActivity::class.java)
-            .putExtra(SessionActivity.EXTRA_PROFILE, activeProfile.slotKey)
+        val intent = Intent(this, PreRowActivity::class.java)
+            .putExtra(PreRowActivity.EXTRA_PROFILE, activeProfile.slotKey)
         startActivity(intent)
     }
 
@@ -587,26 +648,38 @@ class MainActivity : AppCompatActivity() {
             return 0
         }
 
-        val cal = Calendar.getInstance()
         val daysWithRows = sessions.map { session ->
-            cal.timeInMillis = session.startedAtEpochMs
-            cal.get(Calendar.YEAR) * 400 + cal.get(Calendar.DAY_OF_YEAR)
-        }.toSet().sorted().reversed()
+            dayBucket(session.startedAtEpochMs)
+        }.toSet().sortedDescending()
+
+        val today = dayBucket(System.currentTimeMillis())
+        var expectedDay = when (daysWithRows.firstOrNull()) {
+            today -> today
+            today - 1 -> today - 1
+            else -> return 0
+        }
 
         var streak = 0
-        cal.timeInMillis = System.currentTimeMillis()
-        var expectedDay = cal.get(Calendar.YEAR) * 400 + cal.get(Calendar.DAY_OF_YEAR)
-
         for (day in daysWithRows) {
-            if (day == expectedDay || day == expectedDay - 1) {
+            if (day == expectedDay) {
                 streak++
-                expectedDay = day - 1
-            } else {
+                expectedDay--
+            } else if (day < expectedDay) {
                 break
             }
         }
 
         return streak
+    }
+
+    private fun dayBucket(epochMs: Long): Long {
+        val cal = Calendar.getInstance()
+        cal.timeInMillis = epochMs
+        cal.set(Calendar.HOUR_OF_DAY, 0)
+        cal.set(Calendar.MINUTE, 0)
+        cal.set(Calendar.SECOND, 0)
+        cal.set(Calendar.MILLISECOND, 0)
+        return cal.timeInMillis / 86_400_000L
     }
 
     private fun formatRelativeDate(epochMs: Long): String {
