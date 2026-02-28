@@ -6,6 +6,7 @@ This repository contains:
 
 - an Android launcher app that can replace the stock Hydrow home screen
 - project briefs and handoff prompts for coding, reverse engineering, and UX work
+- contributor and backlog docs for ongoing GitHub collaboration
 - helper scripts related to ADB / OTA experimentation
 
 It does **not** contain a full rooted device dump or a complete reverse-engineered telemetry implementation yet.
@@ -42,6 +43,14 @@ Live rowing metrics are not integrated yet.
   - current implementation status, installs, and rollback notes
 - [device_recon/HYDROW_PACKAGE_RECON.md](./device_recon/HYDROW_PACKAGE_RECON.md)
   - validated package and APK reconnaissance notes
+- [docs/README.md](./docs/README.md)
+  - clean documentation index for contributors and LLM handoff
+- [docs/START_HERE.md](./docs/START_HERE.md)
+  - fast path for new contributors
+- [CONTRIBUTING.md](./CONTRIBUTING.md)
+  - build, install, safety, and collaboration guidance
+- [NEXT_STEPS.md](./NEXT_STEPS.md)
+  - prioritized engineering backlog
 - `device_apks/HydrowLauncher.apk`
   - pulled stock launcher APK, tracked via Git LFS
 - `device_apks/crew-base.apk`
