@@ -31,8 +31,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var logoText: TextView
     private lateinit var profileName: TextView
     private lateinit var profileSubtitle: TextView
-    private lateinit var profileBtnPrimary: TextView
-    private lateinit var profileBtnSpouse: TextView
+    private lateinit var profileButton: TextView
+    private lateinit var profileAddButton: TextView
     private lateinit var statRowsValue: TextView
     private lateinit var statDistanceValue: TextView
     private lateinit var statStreakValue: TextView
@@ -86,8 +86,8 @@ class MainActivity : AppCompatActivity() {
         logoText = findViewById(R.id.logoText)
         profileName = findViewById(R.id.profileName)
         profileSubtitle = findViewById(R.id.profileSubtitle)
-        profileBtnPrimary = findViewById(R.id.profileBtnPrimary)
-        profileBtnSpouse = findViewById(R.id.profileBtnSpouse)
+        profileButton = findViewById(R.id.profileBtnPrimary)
+        profileAddButton = findViewById(R.id.profileAddButton)
         statRowsValue = findViewById(R.id.statRowsValue)
         statDistanceValue = findViewById(R.id.statDistanceValue)
         statStreakValue = findViewById(R.id.statStreakValue)
@@ -107,16 +107,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupListeners() {
-        profileBtnPrimary.setOnClickListener { onProfileSlotTapped(UserProfile.SLOT_ONE) }
-        profileBtnSpouse.setOnClickListener { onProfileSlotTapped(UserProfile.SLOT_TWO) }
-        profileBtnPrimary.setOnLongClickListener {
-            showProfileEditor(UserProfile.SLOT_ONE, sessionStore.getProfile(UserProfile.SLOT_ONE))
+        profileButton.setOnClickListener { onProfileButtonTapped() }
+        profileButton.setOnLongClickListener {
+            val activeProfile = sessionStore.getActiveProfile()
+            if (activeProfile == null) {
+                showProfileEditor(sessionStore.firstEmptySlot() ?: UserProfile.SLOT_ONE, null)
+            } else {
+                showProfileEditor(activeProfile.slotKey, activeProfile)
+            }
             true
         }
-        profileBtnSpouse.setOnLongClickListener {
-            showProfileEditor(UserProfile.SLOT_TWO, sessionStore.getProfile(UserProfile.SLOT_TWO))
-            true
-        }
+        profileAddButton.setOnClickListener { onAddProfileTapped() }
 
         startRowButton.setOnClickListener { startRowSession() }
 
@@ -139,15 +140,37 @@ class MainActivity : AppCompatActivity() {
         lastRowCard.setOnClickListener { showHistory() }
     }
 
-    private fun onProfileSlotTapped(slotKey: String) {
-        val profile = sessionStore.getProfile(slotKey)
-        if (profile == null) {
-            showProfileEditor(slotKey, null)
+    private fun onProfileButtonTapped() {
+        val profiles = UserProfile.SLOT_KEYS.mapNotNull(sessionStore::getProfile)
+        when (profiles.size) {
+            0 -> showProfileEditor(UserProfile.SLOT_ONE, null)
+            1 -> {
+                sessionStore.setActiveProfile(profiles.first())
+                refreshUi()
+            }
+            else -> showProfilePicker(profiles)
+        }
+    }
+
+    private fun onAddProfileTapped() {
+        val emptySlot = sessionStore.firstEmptySlot()
+        if (emptySlot == null) {
+            Toast.makeText(this, R.string.profile_slots_full, Toast.LENGTH_SHORT).show()
             return
         }
+        showProfileEditor(emptySlot, null)
+    }
 
-        sessionStore.setActiveProfile(profile)
-        refreshUi()
+    private fun showProfilePicker(profiles: List<UserProfile>) {
+        val labels = profiles.map { it.displayName }.toTypedArray()
+        AlertDialog.Builder(this)
+            .setTitle(R.string.profile_select_title)
+            .setItems(labels) { _, which ->
+                sessionStore.setActiveProfile(profiles[which])
+                refreshUi()
+            }
+            .setNegativeButton(android.R.string.cancel, null)
+            .show()
     }
 
     private fun showProfileEditor(slotKey: String, existing: UserProfile?) {
@@ -228,13 +251,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun refreshUi() {
-        val primaryProfile = sessionStore.getProfile(UserProfile.SLOT_ONE)
-        val secondaryProfile = sessionStore.getProfile(UserProfile.SLOT_TWO)
         val activeProfile = sessionStore.getActiveProfile()
 
-        profileBtnPrimary.text = primaryProfile?.displayName ?: getString(R.string.add_profile_short)
-        profileBtnSpouse.text = secondaryProfile?.displayName ?: getString(R.string.add_profile_short)
-        updateProfileButtonStates(primaryProfile, secondaryProfile, activeProfile?.slotKey)
+        profileButton.text = activeProfile?.displayName ?: getString(R.string.add_profile_short)
+        updateProfileButtonStates(activeProfile != null, sessionStore.firstEmptySlot() != null)
 
         if (activeProfile == null) {
             profileName.text = getString(R.string.profile_empty_title)
@@ -296,36 +316,26 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updateProfileButtonStates(
-        primaryProfile: UserProfile?,
-        secondaryProfile: UserProfile?,
-        activeSlotKey: String?,
+        hasActiveProfile: Boolean,
+        canAddMore: Boolean,
     ) {
-        applyProfileButtonState(
-            button = profileBtnPrimary,
-            profile = primaryProfile,
-            isSelected = activeSlotKey == UserProfile.SLOT_ONE,
+        profileButton.isSelected = hasActiveProfile
+        profileButton.alpha = if (hasActiveProfile) 1f else 0.9f
+        profileButton.setTextColor(
+            ContextCompat.getColor(
+                this,
+                if (hasActiveProfile) R.color.rowplus_amber_soft else R.color.rowplus_text_secondary,
+            ),
         )
-        applyProfileButtonState(
-            button = profileBtnSpouse,
-            profile = secondaryProfile,
-            isSelected = activeSlotKey == UserProfile.SLOT_TWO,
+
+        profileAddButton.isEnabled = canAddMore
+        profileAddButton.alpha = if (canAddMore) 1f else 0.45f
+        profileAddButton.setTextColor(
+            ContextCompat.getColor(
+                this,
+                if (canAddMore) R.color.rowplus_text_primary else R.color.rowplus_text_muted,
+            ),
         )
-    }
-
-    private fun applyProfileButtonState(
-        button: TextView,
-        profile: UserProfile?,
-        isSelected: Boolean,
-    ) {
-        button.isSelected = isSelected
-        button.alpha = if (profile == null) 0.82f else 1f
-
-        val colorRes = when {
-            isSelected -> R.color.rowplus_amber_soft
-            profile == null -> R.color.rowplus_text_muted
-            else -> R.color.rowplus_text_secondary
-        }
-        button.setTextColor(ContextCompat.getColor(this, colorRes))
     }
 
     private fun buildWeekChart() {

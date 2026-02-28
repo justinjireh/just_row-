@@ -6,11 +6,14 @@
     <string name="greeting_welcome">Welcome back</string>
     <string name="profile_ready">Ready to row?</string>
     <string name="add_profile_short">Add profile</string>
+    <string name="profile_add_icon">+</string>
     <string name="profile_empty_title">Add your first profile</string>
     <string name="profile_empty_subtitle">Tap a slot below to save a name, height, and weight.</string>
     <string name="profile_stats_summary">%1$d in / %2$d lb</string>
     <string name="profile_required">Add a profile before starting a row.</string>
     <string name="profile_missing">This profile is no longer available.</string>
+    <string name="profile_select_title">Choose profile</string>
+    <string name="profile_slots_full">Both profile slots are already in use.</string>
     <string name="profile_dialog_add_title">Add profile</string>
     <string name="profile_dialog_edit_title">Edit profile</string>
     <string name="profile_dialog_save">Save</string>
