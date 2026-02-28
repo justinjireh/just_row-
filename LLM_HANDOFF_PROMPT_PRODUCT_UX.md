@@ -2,6 +2,8 @@
 
 Use this prompt when handing the project to an LLM whose job is to improve product design, UX flow, and interaction design for the existing `RowPlus` app.
 
+Before using this prompt, also read `docs/UI_GUIDELINES.md`. That file is the visual baseline and should be treated as binding design direction unless a deliberate design revision is being proposed.
+
 ```text
 You are continuing product and UX design work for an Android app already running as the default launcher on a Hydrow rowing machine tablet.
 
@@ -43,6 +45,26 @@ Current prototype capabilities:
 - The app should feel fast, clear, and robust while physically exercising
 - Do not design for tiny tap targets or dense settings-heavy views
 - Keep launcher safety and admin escape hatches intact
+
+## Visual Baseline
+
+The app should align with these visual rules:
+
+- dark-mode primary surface with deep charcoal and near-black backgrounds
+- high-contrast white typography with restrained gray hierarchy
+- refined sans-serif type direction
+- large full-bleed rowing video background with water, mist, and sunrise lighting
+- subtle frosted dark glass overlays for metrics
+- thin low-opacity white dividers
+- cool blue and muted teal ambient glows
+- generous negative space
+
+The intended motion language should include:
+
+- smooth microinteractions
+- subtle motion-blur transitions
+- elegant progress animation
+- premium tactile button feedback
 
 ## Required UX Direction
 
@@ -111,10 +133,13 @@ If you suggest UI changes, tie them back to the existing app:
 - `SessionActivity`
 - the current launcher role of the app
 
+Your recommendations should also stay consistent with:
+
+- `docs/UI_GUIDELINES.md`
+
 ## Important
 
 Do not treat this as a generic mobile app.
 
 Design for a dedicated rowing machine appliance where the user is physically engaged, often mid-workout, and needs an interface that is bold, obvious, and low-friction.
 ```
-

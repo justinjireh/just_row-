@@ -34,7 +34,8 @@ Read:
 Read:
 
 1. [../LLM_HANDOFF_PROMPT_PRODUCT_UX.md](../LLM_HANDOFF_PROMPT_PRODUCT_UX.md)
-2. [../NEXT_STEPS.md](../NEXT_STEPS.md)
+2. [UI_GUIDELINES.md](UI_GUIDELINES.md)
+3. [../NEXT_STEPS.md](../NEXT_STEPS.md)
 
 ## If You Need A Single General Prompt
 

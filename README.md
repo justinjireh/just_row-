@@ -49,6 +49,8 @@ Live rowing metrics are not integrated yet.
   - fast path for new contributors
 - [docs/RELEASE_NOTES_v0.1_PROTOTYPE.md](./docs/RELEASE_NOTES_v0.1_PROTOTYPE.md)
   - current release note for the prototype tag
+- [docs/UI_GUIDELINES.md](./docs/UI_GUIDELINES.md)
+  - visual and interaction direction for future UI work
 - [CONTRIBUTING.md](./CONTRIBUTING.md)
   - build, install, safety, and collaboration guidance
 - [NEXT_STEPS.md](./NEXT_STEPS.md)

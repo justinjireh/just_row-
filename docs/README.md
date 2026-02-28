@@ -32,6 +32,10 @@ Telemetry reconnaissance summary:
 
 - [../device_recon/HYDROW_PACKAGE_RECON.md](../device_recon/HYDROW_PACKAGE_RECON.md)
 
+Visual and interaction baseline:
+
+- [UI_GUIDELINES.md](UI_GUIDELINES.md)
+
 ## Handoff Prompts
 
 General continuation:
@@ -59,6 +63,10 @@ Repository workflow and safety rules:
 Prioritized engineering backlog:
 
 - [../NEXT_STEPS.md](../NEXT_STEPS.md)
+
+UI design direction:
+
+- [UI_GUIDELINES.md](UI_GUIDELINES.md)
 
 ## App Source And Build Entry Points
 
