@@ -9,6 +9,7 @@ Read these first:
 1. [../README.md](../README.md)
 2. [../HYDROW_CUSTOM_APP_BRIEF.md](../HYDROW_CUSTOM_APP_BRIEF.md)
 3. [../HYDROW_IMPLEMENTATION_STATUS_BRIEF.md](../HYDROW_IMPLEMENTATION_STATUS_BRIEF.md)
+4. [RELEASE_NOTES_v0.1_PROTOTYPE.md](RELEASE_NOTES_v0.1_PROTOTYPE.md)
 
 ## If You Need To Build Or Ship Code
 
@@ -41,3 +42,8 @@ Use:
 
 - [../LLM_HANDOFF_PROMPT.md](../LLM_HANDOFF_PROMPT.md)
 
+## If You Need The Full Document Index
+
+Use:
+
+- [README.md](README.md)
