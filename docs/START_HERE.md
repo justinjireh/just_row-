@@ -37,6 +37,15 @@ Read:
 2. [UI_GUIDELINES.md](UI_GUIDELINES.md)
 3. [../NEXT_STEPS.md](../NEXT_STEPS.md)
 
+## If You Need To Build Workout Modes Or Scenic Rivers
+
+Read:
+
+1. [../LLM_HANDOFF_PROMPT_SCENIC_WORKOUTS.md](../LLM_HANDOFF_PROMPT_SCENIC_WORKOUTS.md)
+2. [SCENIC_RIVERS_PLAN.md](SCENIC_RIVERS_PLAN.md)
+3. [WORKOUT_MODES_CATALOG.md](WORKOUT_MODES_CATALOG.md)
+4. [UI_GUIDELINES.md](UI_GUIDELINES.md)
+
 ## If You Need A Single General Prompt
 
 Use:

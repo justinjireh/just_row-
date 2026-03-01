@@ -1,0 +1,15 @@
+androidx.hilt.AndroidXHiltKspProcessor$Provider
+dagger.hilt.processor.internal.uninstallmodules.KspUninstallModulesProcessor$Provider
+dagger.hilt.android.processor.internal.customtestapplication.KspCustomTestApplicationProcessor$Provider
+dagger.hilt.processor.internal.aliasof.KspAliasOfProcessor$Provider
+dagger.hilt.android.processor.internal.viewmodel.KspViewModelProcessor$Provider
+dagger.hilt.processor.internal.earlyentrypoint.KspEarlyEntryPointProcessor$Provider
+dagger.hilt.processor.internal.generatesrootinput.KspGeneratesRootInputProcessor$Provider
+dagger.hilt.android.processor.internal.androidentrypoint.KspAndroidEntryPointProcessor$Provider
+dagger.hilt.processor.internal.originatingelement.KspOriginatingElementProcessor$Provider
+dagger.hilt.android.processor.internal.bindvalue.KspBindValueProcessor$Provider
+dagger.hilt.processor.internal.definecomponent.KspDefineComponentProcessor$Provider
+dagger.hilt.processor.internal.root.KspRootProcessor$Provider
+dagger.hilt.processor.internal.aggregateddeps.KspAggregatedDepsProcessor$Provider
+dagger.hilt.processor.internal.root.KspComponentTreeDepsProcessor$Provider
+dagger.internal.codegen.KspComponentProcessor$Provider

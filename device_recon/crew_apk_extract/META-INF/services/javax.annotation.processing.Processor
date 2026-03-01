@@ -1,0 +1,15 @@
+androidx.hilt.AndroidXHiltProcessor
+dagger.hilt.processor.internal.uninstallmodules.UninstallModulesProcessor
+dagger.hilt.processor.internal.generatesrootinput.GeneratesRootInputProcessor
+dagger.hilt.processor.internal.root.RootProcessor
+dagger.hilt.android.processor.internal.customtestapplication.CustomTestApplicationProcessor
+dagger.hilt.android.processor.internal.androidentrypoint.AndroidEntryPointProcessor
+dagger.hilt.processor.internal.originatingelement.OriginatingElementProcessor
+dagger.hilt.processor.internal.earlyentrypoint.EarlyEntryPointProcessor
+dagger.hilt.processor.internal.root.ComponentTreeDepsProcessor
+dagger.hilt.processor.internal.aliasof.AliasOfProcessor
+dagger.hilt.android.processor.internal.bindvalue.BindValueProcessor
+dagger.hilt.android.processor.internal.viewmodel.ViewModelProcessor
+dagger.hilt.processor.internal.aggregateddeps.AggregatedDepsProcessor
+dagger.hilt.processor.internal.definecomponent.DefineComponentProcessor
+dagger.internal.codegen.ComponentProcessor

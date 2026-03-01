@@ -157,12 +157,15 @@ def sign_ota_zip(input_zip_path, output_zip_path):
     print(f"Signature size: {len(signature)} bytes")
 
     # Build the comment: [signature][footer]
-    # Footer: sig_start(2) + comment_size(2) + magic(2)
+    # Android recovery footer format (6 bytes, all little-endian uint16):
+    #   [comment_size] [signature_start] [magic 0xFFFF]
+    # where comment_size = total ZIP comment length (signature + footer)
+    # and signature_start = offset of signature within the comment (always 0)
     footer_size = 6
     sig_start = 0  # signature starts at offset 0 within comment
     comment_size = len(signature) + footer_size
 
-    footer = struct.pack('<HHH', sig_start, comment_size, 0xFFFF)
+    footer = struct.pack('<HHH', comment_size, sig_start, 0xFFFF)
     comment = signature + footer
 
     # Update the ZIP's EOCD comment length

@@ -1,0 +1,89 @@
+; android_winusb.inf
+; Android WinUsb driver installation.
+; (c) Copyright 2013 Wacom Technology
+;
+[Version]
+Signature   = "$Windows NT$"
+Class       = AndroidUsbDeviceClass
+ClassGuid   = {3F966BD9-FA04-4ec5-991C-D326973B5128}
+Provider    = %ProviderName%
+CatalogFile = android_winusb.cat
+DriverVer   = 03/09/2013,1.0.0.1
+
+; ================== Class section ==================
+[ClassInstall32]
+Addreg = AndroidWinUsbClassReg
+
+[AndroidWinUsbClassReg]
+HKR,,,0,%ClassName%
+HKR,,Icon,,-1
+
+; ========== Manufacturer/Models sections ===========
+[Manufacturer]
+%ProviderName% = ADB, NTx86, NTamd64
+
+[ADB.NTx86]
+%CompositeAdbInterface% = USB_Install, USB\VID_0531&PID_2001&MI_01
+%CompositeAdbInterface% = USB_Install, USB\VID_0531&PID_2004&MI_02
+
+[ADB.NTamd64]
+%CompositeAdbInterface% = USB_Install, USB\VID_0531&PID_2001&MI_01
+%CompositeAdbInterface% = USB_Install, USB\VID_0531&PID_2004&MI_02
+
+; =================== Installation ===================
+[USB_Install]
+Include = winusb.inf
+Needs   = WINUSB.NT
+
+[USB_Install.Services]
+Include    = winusb.inf
+AddService = WinUSB,0x00000002,WinUSB_ServiceInstall
+
+[WinUSB_ServiceInstall]
+DisplayName   = %WinUSB_SvcDesc%
+ServiceType   = 1
+StartType     = 3
+ErrorControl  = 1
+ServiceBinary = %12%\WinUSB.sys
+
+[USB_Install.Wdf]
+KmdfService = WINUSB, WinUSB_Install
+
+[WinUSB_Install]
+KmdfLibraryVersion = 1.9
+
+[USB_Install.HW]
+AddReg = Dev_AddReg
+
+[Dev_AddReg]
+HKR,,DeviceInterfaceGUIDs,0x10000,"{F72FE0D4-CBCB-407d-8814-9ED673D0DD6B}"
+
+[USB_Install.CoInstallers]
+AddReg    = CoInstallers_AddReg
+CopyFiles = CoInstallers_CopyFiles
+
+[CoInstallers_AddReg]
+HKR,,CoInstallers32,0x00010000,"WdfCoInstaller01009.dll,WdfCoInstaller","WinUSBCoInstaller2.dll"
+
+[CoInstallers_CopyFiles]
+WinUSBCoInstaller2.dll
+WdfCoInstaller01009.dll
+
+[DestinationDirs]
+CoInstallers_CopyFiles=11
+
+; ================= Source Media Section =====================
+[SourceDisksNames]
+1 = %DISK_NAME%
+
+[SourceDisksFiles]
+WinUSBCoInstaller2.dll=1
+WdfCoInstaller01009.dll=1
+
+; =================== Strings ===================
+[Strings]
+ProviderName          = "Wacom Co., Ltd."
+CompositeAdbInterface = "Android Composite ADB Interface"
+WinUSB_SvcDesc        = "Android USB Driver"
+DISK_NAME             = "Android WinUsb installation disk"
+ClassName             = "Android Devices"

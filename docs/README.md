@@ -36,6 +36,14 @@ Visual and interaction baseline:
 
 - [UI_GUIDELINES.md](UI_GUIDELINES.md)
 
+Scenic workout implementation baseline:
+
+- [SCENIC_RIVERS_PLAN.md](SCENIC_RIVERS_PLAN.md)
+
+Workout product catalog:
+
+- [WORKOUT_MODES_CATALOG.md](WORKOUT_MODES_CATALOG.md)
+
 ## Handoff Prompts
 
 General continuation:
@@ -54,6 +62,10 @@ Product and UX refinement:
 
 - [../LLM_HANDOFF_PROMPT_PRODUCT_UX.md](../LLM_HANDOFF_PROMPT_PRODUCT_UX.md)
 
+Scenic workouts and workout-library expansion:
+
+- [../LLM_HANDOFF_PROMPT_SCENIC_WORKOUTS.md](../LLM_HANDOFF_PROMPT_SCENIC_WORKOUTS.md)
+
 ## Contributor Docs
 
 Repository workflow and safety rules:
@@ -67,6 +79,14 @@ Prioritized engineering backlog:
 UI design direction:
 
 - [UI_GUIDELINES.md](UI_GUIDELINES.md)
+
+Scenic workout spec:
+
+- [SCENIC_RIVERS_PLAN.md](SCENIC_RIVERS_PLAN.md)
+
+Workout mode roadmap:
+
+- [WORKOUT_MODES_CATALOG.md](WORKOUT_MODES_CATALOG.md)
 
 ## App Source And Build Entry Points
 

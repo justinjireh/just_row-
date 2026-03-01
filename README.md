@@ -51,6 +51,10 @@ Live rowing metrics are not integrated yet.
   - current release note for the prototype tag
 - [docs/UI_GUIDELINES.md](./docs/UI_GUIDELINES.md)
   - visual and interaction direction for future UI work
+- [docs/SCENIC_RIVERS_PLAN.md](./docs/SCENIC_RIVERS_PLAN.md)
+  - product and implementation plan for scenic route workouts
+- [docs/WORKOUT_MODES_CATALOG.md](./docs/WORKOUT_MODES_CATALOG.md)
+  - full catalog and build order for future row modes
 - [CONTRIBUTING.md](./CONTRIBUTING.md)
   - build, install, safety, and collaboration guidance
 - [NEXT_STEPS.md](./NEXT_STEPS.md)
@@ -67,6 +71,8 @@ Live rowing metrics are not integrated yet.
   - reverse-engineering handoff prompt
 - [LLM_HANDOFF_PROMPT_PRODUCT_UX.md](./LLM_HANDOFF_PROMPT_PRODUCT_UX.md)
   - product / UX handoff prompt
+- [LLM_HANDOFF_PROMPT_SCENIC_WORKOUTS.md](./LLM_HANDOFF_PROMPT_SCENIC_WORKOUTS.md)
+  - workout library and scenic-routes handoff prompt
 
 ## Build
 

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration debug="true">
+
+    <conversionRule conversionWord="tmdc" converterClass="com.truerowing.crew.logger.ThreadMDCConverter" />
+
+    <appender name="logcat" class="ch.qos.logback.classic.android.LogcatAppender">
+        <filter class="com.truerowing.crew.logger.LoggerNameFilter">
+            <loggerName>com.truerowing.crew.service.logging.CrewPacketLogger</loggerName>
+            <onMismatch>NEUTRAL</onMismatch>
+            <onMatch>DENY</onMatch>
+        </filter>
+        <filter class="com.truerowing.crew.logger.LoggerNameFilter">
+            <loggerName>com.truerowing.crew.logger.JavascriptLogger</loggerName>
+            <onMismatch>NEUTRAL</onMismatch>
+            <onMatch>DENY</onMatch>
+        </filter>
+        <tagEncoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%logger{1}</pattern>
+        </tagEncoder>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%msg%tmdc</pattern>
+        </encoder>
+    </appender>
+
+    <!-- ======================================================= -->
+    <!-- Console logs JSON-lines-formatted rolling file appender -->
+    <!-- ======================================================= -->
+    <!-- "/data/data/com.truerowing.crew/files/device-logs" -->
+    <!-- DEVICE_SERIAL is set in LoggingInit.initialize -->
+    <!-- The .jsonl extension is declared at jsonlines.org -->
+    <!-- Ending the date with HH means it will roll over once every hour -->
+    <property name="CONSOLE_LOCAL_DIR" value="${DATA_DIR}/device-logs" />
+    <appender name="device-logs" class="com.truerowing.crew.logger.CrewS3SiftingAppender">
+        <logDirectory>${CONSOLE_LOCAL_DIR}</logDirectory>
+        <s3BucketName>${LOG_INPUT_QUEUE}</s3BucketName>
+        <s3FolderName>${CONSOLE_BUCKET_DIR}</s3FolderName>
+        <filter class="com.truerowing.crew.logger.LoggerNameFilter">
+            <loggerName>com.truerowing.crew.service.logging.CrewPacketLogger</loggerName>
+            <onMismatch>NEUTRAL</onMismatch>
+            <onMatch>DENY</onMatch>
+        </filter>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>TRACE</level>
+            <onMatch>DENY</onMatch>
+            <onMismatch>NEUTRAL</onMismatch>
+        </filter>
+        <discriminator class="com.truerowing.crew.logger.AppSessionDiscriminator" />
+        <sift>
+            <appender name="device-logs-${APP_SESSION}" class="com.truerowing.crew.logger.ManualRolloverRollingFileAppender">
+                <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+                    <!-- Format log events to Bunyan format -->
+                    <layout class="com.truerowing.crew.logger.BunyanLogbackLayout" />
+                </encoder>
+                <rollingPolicy class="ch.qos.logback.core.rolling.CrewS3SizeAndTimeBasedRollingPolicy">
+                    <fileNamePattern>${CONSOLE_LOCAL_DIR}/%d{yyyy_MM_dd_HHXXX}_${DEVICE_SERIAL}_console_${APP_SESSION}_%i.jsonl</fileNamePattern>
+                    <maxFileSize>5MB</maxFileSize>
+                    <!-- Keep a maximum of 30 days worth of files, to prevent disk fill-up -->
+                    <maxHistory>720</maxHistory>
+                    <logDirectory>${CONSOLE_LOCAL_DIR}</logDirectory>
+                    <!-- LOG_INPUT_QUEUE is set in LoggingInit#initialize -->
+                    <s3BucketName>${LOG_INPUT_QUEUE}</s3BucketName>
+                    <s3FolderName>${CONSOLE_BUCKET_DIR}</s3FolderName>
+                </rollingPolicy>
+            </appender>
+        </sift>
+    </appender>
+
+    <!-- =========================================== -->
+    <!-- Brake-controller logs rolling file appender -->
+    <!-- =========================================== -->
+    <!--
+    "/data/data/com.truerowing.crew/files/device-logs"
+    DEVICE_SERIAL is set in LoggingInit.initialize
+    Ending the date with HH means it will roll over once every hour
+    The workout ID is always null on app startup; the filename is changed to include the real
+    workout ID when a workout starts or stops
+    -->
+    <property name="BRAKE_LOCAL_DIR" value="${DATA_DIR}/brake-logs" />
+    <property name="BRAKE_BUCKET" value="hydrow-brake-logs" />
+    <appender name="brake-logs" class="com.truerowing.crew.logger.CrewS3SiftingAppender">
+        <logDirectory>${BRAKE_LOCAL_DIR}</logDirectory>
+        <s3BucketName>${BRAKE_BUCKET}</s3BucketName>
+        <filter class="com.truerowing.crew.logger.LoggerNameFilter">
+            <loggerName>com.truerowing.crew.service.logging.CrewPacketLogger</loggerName>
+            <onMismatch>DENY</onMismatch>
+            <onMatch>NEUTRAL</onMatch>
+        </filter>
+        <discriminator class="com.truerowing.crew.logger.CrewProcessMDCDiscriminator">
+            <key>workoutId</key>
+            <defaultValue>unknown</defaultValue>
+        </discriminator>
+        <timeout>1 minute</timeout>
+        <sift>
+            <appender name="brake-logs-${workoutId}" class="com.truerowing.crew.logger.ManualRolloverRollingFileAppender">
+                <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+                    <!-- Format log events to brake-controller text format -->
+                    <layout class="com.truerowing.crew.logger.BrakeLogbackLayout" />
+                </encoder>
+                <rollingPolicy class="ch.qos.logback.core.rolling.CrewS3SizeAndTimeBasedRollingPolicy">
+                    <fileNamePattern>${BRAKE_LOCAL_DIR}/brake_${DEVICE_SERIAL}_wid-${workoutId}_%d{yyyy-MM-dd-HHXXX}_%i.log</fileNamePattern>
+                    <maxFileSize>5MB</maxFileSize>
+                    <!-- Keep a maximum of 30 days worth of files, to prevent disk fill-up -->
+                    <maxHistory>720</maxHistory>
+                    <logDirectory>${BRAKE_LOCAL_DIR}</logDirectory>
+                    <s3BucketName>${BRAKE_BUCKET}</s3BucketName>
+                </rollingPolicy>
+            </appender>
+        </sift>
+    </appender>
+
+    <!-- Turn down verbosity of Apache Commons Logging, -->
+    <!-- which is used by the AWS client for S3 uploads -->
+    <logger name="org.apache" level="ERROR" />
+    <logger name="httpclient" level="ERROR" />
+
+    <root level="trace">
+        <appender-ref ref="logcat" />
+        <appender-ref ref="device-logs" />
+        <appender-ref ref="brake-logs" />
+    </root>
+
+</configuration>
