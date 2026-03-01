@@ -2,27 +2,29 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <shape android:shape="rectangle">
-            <solid android:color="#0FFFFFFF" />
-            <corners android:radius="@dimen/card_radius_md" />
+            <solid android:color="#0F0A141A" />
+            <corners
+                android:topLeftRadius="20dp"
+                android:topRightRadius="20dp" />
             <stroke
                 android:width="1dp"
                 android:color="#38FFFFFF" />
         </shape>
     </item>
-    <item android:top="2dp" android:left="4dp" android:right="4dp" android:bottom="40dp">
+    <item android:top="2dp" android:left="4dp" android:right="4dp" android:bottom="42dp">
         <shape android:shape="rectangle">
             <gradient
                 android:angle="270"
-                android:startColor="#70FFFFFF"
-                android:endColor="#00000000" />
+                android:startColor="#6AFFFFFF"
+                android:endColor="#00FFFFFF" />
             <corners
-                android:topLeftRadius="15dp"
-                android:topRightRadius="15dp"
+                android:topLeftRadius="18dp"
+                android:topRightRadius="18dp"
                 android:bottomLeftRadius="6dp"
                 android:bottomRightRadius="6dp" />
         </shape>
     </item>
-    <item android:top="40dp" android:left="4dp" android:right="4dp" android:bottom="2dp">
+    <item android:top="42dp" android:left="4dp" android:right="4dp" android:bottom="2dp">
         <shape android:shape="rectangle">
             <gradient
                 android:angle="90"
@@ -31,8 +33,8 @@
             <corners
                 android:topLeftRadius="6dp"
                 android:topRightRadius="6dp"
-                android:bottomLeftRadius="15dp"
-                android:bottomRightRadius="15dp" />
+                android:bottomLeftRadius="18dp"
+                android:bottomRightRadius="18dp" />
         </shape>
     </item>
 </layer-list>

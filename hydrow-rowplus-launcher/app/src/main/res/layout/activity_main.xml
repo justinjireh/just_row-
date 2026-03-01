@@ -3,8 +3,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/rowplus_bg_deep"
     android:fitsSystemWindows="true">
+
+    <ImageView
+        android:id="@+id/homeBackdropImage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@null"
+        android:scaleType="centerCrop"
+        android:src="@drawable/session_backdrop_nautical" />
+
+    <View
+        android:id="@+id/homeGlassVeil"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_session_glass_veil" />
 
     <!-- ===== TOP-RIGHT APP CONTROLS ===== -->
     <LinearLayout
@@ -21,7 +34,7 @@
             android:layout_width="44dp"
             android:layout_height="44dp"
             android:layout_marginEnd="10dp"
-            android:background="@drawable/bg_profile_btn"
+            android:background="@drawable/bg_liquid_glass_button"
             android:contentDescription="@string/app_settings_title"
             android:padding="10dp"
             android:scaleType="fitCenter"
@@ -63,7 +76,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:background="@drawable/bg_glass_card"
+                android:background="@drawable/bg_liquid_glass_panel"
                 android:padding="28dp">
 
                 <!-- Top highlight -->
@@ -120,7 +133,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:layout_marginEnd="6dp"
-                        android:background="@drawable/bg_profile_btn"
+                        android:background="@drawable/bg_liquid_glass_button"
                         android:gravity="center"
                         android:paddingTop="12dp"
                         android:paddingBottom="12dp"
@@ -134,7 +147,7 @@
                         android:layout_width="52dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="6dp"
-                        android:background="@drawable/bg_profile_btn"
+                        android:background="@drawable/bg_liquid_glass_button"
                         android:gravity="center"
                         android:paddingTop="12dp"
                         android:paddingBottom="12dp"
@@ -171,7 +184,7 @@
                     android:layout_weight="1"
                     android:layout_marginEnd="6dp"
                     android:orientation="vertical"
-                    android:background="@drawable/bg_stat_tile"
+                    android:background="@drawable/bg_liquid_glass_panel"
                     android:padding="16dp">
 
                     <TextView
@@ -202,7 +215,7 @@
                     android:layout_marginStart="4dp"
                     android:layout_marginEnd="4dp"
                     android:orientation="vertical"
-                    android:background="@drawable/bg_stat_tile"
+                    android:background="@drawable/bg_liquid_glass_panel"
                     android:padding="16dp">
 
                     <TextView
@@ -232,7 +245,7 @@
                     android:layout_weight="1"
                     android:layout_marginStart="6dp"
                     android:orientation="vertical"
-                    android:background="@drawable/bg_stat_tile"
+                    android:background="@drawable/bg_liquid_glass_panel"
                     android:padding="16dp">
 
                     <TextView
@@ -293,7 +306,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:background="@drawable/bg_stat_tile"
+                android:background="@drawable/bg_liquid_glass_panel"
                 android:padding="18dp"
                 android:visibility="visible">
 
@@ -471,7 +484,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="18dp"
-                android:background="@drawable/bg_stat_tile"
+                android:background="@drawable/bg_liquid_glass_panel"
                 android:text="@string/no_history"
                 android:textColor="@color/rowplus_text_muted"
                 android:textSize="@dimen/text_body"
@@ -497,25 +510,25 @@
             <!-- START ROW+ BUTTON -->
             <LinearLayout
                 android:id="@+id/startRowButton"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:gravity="center"
-                android:background="@drawable/bg_start_row"
-                android:paddingTop="@dimen/start_btn_pad_v"
-                android:paddingBottom="@dimen/start_btn_pad_v"
-                android:paddingStart="@dimen/start_btn_pad_h"
-                android:paddingEnd="@dimen/start_btn_pad_h"
+                android:background="@drawable/bg_liquid_glass_button"
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp"
+                android:paddingStart="34dp"
+                android:paddingEnd="34dp"
                 android:elevation="12dp"
                 android:clickable="true"
                 android:focusable="true"
-                android:maxWidth="620dp">
+                android:minWidth="0dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/start_row_plus"
-                    android:textColor="@color/rowplus_on_amber"
+                    android:textColor="@color/rowplus_text_primary"
                     android:textSize="@dimen/start_btn_text"
                     android:fontFamily="sans-serif"
                     android:textStyle="bold"
@@ -526,7 +539,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="6dp"
                     android:text="@string/start_subtitle"
-                    android:textColor="#990A0A0A"
+                    android:textColor="@color/rowplus_text_secondary"
                     android:textSize="13sp"
                     android:fontFamily="sans-serif-medium"
                     android:letterSpacing="0.15"
@@ -545,7 +558,7 @@
                     android:id="@+id/quick20min"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/bg_quick_pill"
+                    android:background="@drawable/bg_liquid_glass_button"
                     android:paddingStart="18dp"
                     android:paddingEnd="18dp"
                     android:paddingTop="9dp"
@@ -560,7 +573,7 @@
                     android:id="@+id/quick5k"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/bg_quick_pill"
+                    android:background="@drawable/bg_liquid_glass_button"
                     android:paddingStart="18dp"
                     android:paddingEnd="18dp"
                     android:paddingTop="9dp"
@@ -575,7 +588,7 @@
                     android:id="@+id/quick30min"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/bg_quick_pill"
+                    android:background="@drawable/bg_liquid_glass_button"
                     android:paddingStart="18dp"
                     android:paddingEnd="18dp"
                     android:paddingTop="9dp"
@@ -590,7 +603,7 @@
                     android:id="@+id/quick10k"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/bg_quick_pill"
+                    android:background="@drawable/bg_liquid_glass_button"
                     android:paddingStart="18dp"
                     android:paddingEnd="18dp"
                     android:paddingTop="9dp"
@@ -647,7 +660,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    android:background="@drawable/bg_dock_btn"
+                    android:background="@drawable/bg_liquid_glass_button"
                     android:paddingStart="@dimen/dock_pad_h"
                     android:paddingEnd="@dimen/dock_pad_h"
                     android:paddingTop="@dimen/dock_pad_v"
@@ -679,7 +692,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    android:background="@drawable/bg_dock_btn"
+                    android:background="@drawable/bg_liquid_glass_button"
                     android:paddingStart="@dimen/dock_pad_h"
                     android:paddingEnd="@dimen/dock_pad_h"
                     android:paddingTop="@dimen/dock_pad_v"
@@ -711,7 +724,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    android:background="@drawable/bg_dock_btn"
+                    android:background="@drawable/bg_liquid_glass_button"
                     android:paddingStart="@dimen/dock_pad_h"
                     android:paddingEnd="@dimen/dock_pad_h"
                     android:paddingTop="@dimen/dock_pad_v"

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="76dp"
     android:layout_height="wrap_content"
-    android:background="@drawable/bg_dock_item"
+    android:background="@drawable/bg_liquid_glass_button"
     android:clickable="true"
     android:focusable="true"
     android:gravity="center_horizontal"
